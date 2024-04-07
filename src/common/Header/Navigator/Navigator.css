@@ -1,0 +1,17 @@
+
+.NavigatorDesign {
+
+    color: white;
+    font-weight: bold;
+
+    margin: 1em;
+
+    transition: 0.3s;
+}
+
+.NavigatorDesign:hover {
+
+    transition: 0.3s;
+    color: black;
+    cursor: pointer;
+}

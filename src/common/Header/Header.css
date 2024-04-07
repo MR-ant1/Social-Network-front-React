@@ -1,0 +1,12 @@
+
+.header-design {
+
+    height: 12vh;
+    width: 100vw;
+
+    background-color: darkcyan;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
