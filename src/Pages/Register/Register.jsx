@@ -1,5 +1,5 @@
 
-import "./Register.css"
+import './Register.css'
 
 export const Register = () => {
 
