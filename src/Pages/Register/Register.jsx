@@ -1,12 +1,15 @@
 
 import './Register.css'
 import { useNavigate } from 'react-router-dom'
-import { redirectButton } from '../../common/RedirectButton/RedirectButton';
 import { CButton } from '../../common/CButton/CButton';
 import { CInput } from "../../common/CInput/CInput"
 import { useState } from 'react';
+import { RedirectButton } from '../../common/RedirectButton/RedirectButton';
+import { registerCall } from '../../services/apiCalls';
+import { validate } from '../../utils/validations'
 
 export const Register = () => {
+
     const navigate = useNavigate();
 
     const [user, setUser] = useState({
@@ -35,7 +38,7 @@ export const Register = () => {
     }
 
     const checkError = (e) => {
-        const error = validame(e.target.name, e.target.value)
+        const error = validate(e.target.name, e.target.value)
 
         setUserError((prevState) => ({
             ...prevState,
@@ -43,7 +46,7 @@ export const Register = () => {
         }))
     }
 
-    const registration = async () => {
+    const registerUser = async () => {
         try {
             for (let elemento in user) {
                 if (user[elemento] === "") {
@@ -51,12 +54,12 @@ export const Register = () => {
                 }
             }
             
-            const fetched = await RegisterUser(user)
+            const fetched = await registerCall(user)
 
             setMsgError(fetched.message)
             
             if (fetched.success === true){
-            setTimeout(() => {          //After ending registration, page redirects to home.
+            setTimeout(() => {    //After ending registration, page redirects to home.
                 navigate("/")
             }, 500)}else navigate("/register")
 
@@ -73,8 +76,8 @@ export const Register = () => {
                 placeholder={"firstName"}
                 name={"firstName"}
                 value={user.firstName || ""}
-                onChangeFunction={(e) => inputHandler(e)}
-                onBlurFunction={(e) => checkError(e)}
+                changeFunction={(e) => inputHandler(e)}
+                blurFunction={(e) => checkError(e)}
             />
             <div className="error">{userError.firstNameError}</div>
             <CInput
@@ -84,9 +87,9 @@ export const Register = () => {
                 placeholder={"lastName"}
                 name={"lastName"}
                 value={user.lastName || ""}
-                onChangeFunction={(e) => inputHandler(e)}
-                onBlurFunction={(e) => checkError(e)}
-            />
+                changeFunction={inputHandler}
+                blurFunction={checkError}
+                />
             <div className="error">{userError.lastNameError}</div>
             <CInput
                 className={`inputDesign ${userError.emailError !== "" ? "inputDesignError" : ""
@@ -95,8 +98,8 @@ export const Register = () => {
                 placeholder={"email"}
                 name={"email"}
                 value={user.email || ""}
-                onChangeFunction={(e) => inputHandler(e)}
-                onBlurFunction={(e) => checkError(e)}
+                changeFunction={inputHandler}
+                blurFunction={checkError}
             />
             <div className="error">{userError.emailError}</div>
             <CInput
@@ -106,22 +109,22 @@ export const Register = () => {
                 placeholder={"password"}
                 name={"password"}
                 value={user.password || ""}
-                onChangeFunction={(e) => inputHandler(e)}
-                onBlurFunction={(e) => checkError(e)}
+                changeFunction={inputHandler}
+                blurFunction={checkError}
             />
             <div className="error">{userError.passwordError}</div>
             <CButton
                 className={"cButtonDesign"}
                 title={"Register"}
-                functionEmit={registration}
+                emitFunction={registerUser}
             />
             <div className="error">{msgError}</div>
-            <div className="accountMsg">Si ya tienes cuenta, haz click aqui abajo</div>
-      <redirectButton
-        className={"redirectButtonDesign"}
-        title={"Login"}
-        onClick={() => navigate("/login")}
-      />
+            <div className="accountMsg">Si ya dispones de cuenta, haz click aqui abajo</div>
+            <RedirectButton
+                className={"redirectButtonDesign"}
+                title={"Login"}
+                emitFunction={() => navigate("/login")}
+            />
         </div>
     )
 }

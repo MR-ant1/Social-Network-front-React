@@ -1,4 +1,4 @@
-.redirectButtonDesign {
+.RedirectButtonDesign {
     height: 2em;
     width: 12em;
 
@@ -13,7 +13,7 @@
     align-items: center;
 }
 
-.redirectButtonDesign:hover {
+.RedirectButtonDesign:hover {
     cursor: pointer;
     transition: 0.2;
     background-color: rgb(59, 59, 59);
