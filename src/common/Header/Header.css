@@ -21,6 +21,6 @@
 
 .logoutDesign:hover {
   transition: 0.3s;
-  color: black;
+  color: rgb(160, 160, 160);
   cursor: pointer;
 }  

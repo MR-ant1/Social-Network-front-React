@@ -15,8 +15,8 @@
     transition: 0.5s;
 }
 
-.cButtonDesign:hover {
+.cbuttonDesign:hover {
     cursor: pointer;
     transition: 0.2;
-    background-color: rgb(121, 0, 0);
+    background-color: rgb(51, 0, 171);
 }

@@ -1,9 +1,9 @@
 
 import './Login.css'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { useState } from 'react'
-import { decodeToken } from 'react-jwt'
+import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { useState } from "react"
+import { decodeToken } from "react-jwt"
 import { CInput } from '../../common/CInput/CInput'
 import { CButton } from '../../common/CButton/CButton'
 import { loginCall } from '../../services/apiCalls'
@@ -19,8 +19,8 @@ export const Login = () => {
 
     const [user, setUser] = useState({
         email: "",
-        password: "",
-    })
+        password: ""
+    });
 
     const [userError, setUserError] = useState({
         emailError: "",
@@ -33,8 +33,8 @@ export const Login = () => {
         setUser((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
-        }))
-    }
+        }));
+    };
 
     const checkError = (e) => {
         const error = validate(e.target.name, e.target.value);
@@ -46,10 +46,10 @@ export const Login = () => {
       };
 
     const loginUser = async () => {
-        
+
         try {
         const fetched = await loginCall(user);
-
+            
         if(fetched.token) {
             const decoded = decodeToken(fetched.token)
 
@@ -57,7 +57,7 @@ export const Login = () => {
                 token: fetched.token,
                 user: decoded
             };
-            dispatch(login({tokenData: passInfo}))
+            dispatch(login({tokenData: passInfo}));
 
             setTimeout(() => {
                 navigate("/")
@@ -76,8 +76,8 @@ export const Login = () => {
             type={"email"}
             name={"email"}
             value={user.email || ""}
-            changeFunction={(e) => inputHandler(e)}
-            blurFunction={(e) => checkError(e)}
+            changeFunction={inputHandler}
+            blurFunction={checkError}
             />
             <div className="error">{user.emailError}</div>
             <CInput
@@ -86,14 +86,14 @@ export const Login = () => {
             type={"password"}
             name={"password"}
             value={user.password || ""}
-            changeFunction={(e) => inputHandler(e)}
-            blurFunction={(e) => checkError(e)}
+            changeFunction={inputHandler}
+            blurFunction={checkError}
             />
             <div className="error">{user.passwordError}</div>
             <CButton
             className={"cbuttonDesign"}
             title={"Login"}
-            emitFunction={loginUser}
+            emitFunction={(loginUser)}
             />
             <div className="error">{msgError}</div>
         </div>
