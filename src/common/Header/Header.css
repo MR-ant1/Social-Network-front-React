@@ -4,9 +4,29 @@
     height: 12vh;
     width: 100vw;
 
-    background-color: darkcyan;
+    background-color: rgb(185, 185, 185);
 
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
 }
+
+.navigatorDesign {
+    display: flex;
+    flex-direction: row;
+}
+
+.logoutDesign {
+  color: white;
+  font-weight: bold;
+
+  margin: 1em;
+
+  transition: 0.3s;
+}
+
+.logoutDesign:hover {
+  transition: 0.3s;
+  color: black;
+  cursor: pointer;
+}  
