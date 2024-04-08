@@ -9,6 +9,7 @@ import { CButton } from '../../common/CButton/CButton'
 import { loginCall } from '../../services/apiCalls'
 import { login } from '../../app/slices/userSlice'
 import { validate } from '../../utils/validations'
+import { RedirectButton } from '../../common/RedirectButton/RedirectButton'
 
 
 export const Login = () => {
@@ -98,6 +99,12 @@ export const Login = () => {
             emitFunction={(loginUser)}
             />
             <div className="error">{msgError}</div>
+            <div className="redirectRegisterMsg">Si no dispones de una cuenta, haz click aqui abajo</div>
+            <RedirectButton
+                className={"RedirectButtonDesign"}
+                title={"Register"}
+                emitFunction={() => navigate("/register")}
+                />
         </div>
     )
 }

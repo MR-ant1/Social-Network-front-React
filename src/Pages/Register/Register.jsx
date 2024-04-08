@@ -68,7 +68,7 @@ export const Register = () => {
         }
     }
     return (
-        <div className="registerBackgroundDesign">
+        <div className="registerDesign">
             <CInput
                 className={`inputDesign ${userError.firstNameError !== "" ? "inputDesignError" : ""
                     }`}
@@ -76,9 +76,9 @@ export const Register = () => {
                 placeholder={"firstName"}
                 name={"firstName"}
                 value={user.firstName || ""}
-                changeFunction={(e) => inputHandler(e)}
-                blurFunction={(e) => checkError(e)}
-            />
+                changeFunction={inputHandler}
+                blurFunction={checkError}
+                />
             <div className="error">{userError.firstNameError}</div>
             <CInput
                 className={`inputDesign ${userError.lastNameError !== "" ? "inputDesignError" : ""
@@ -100,7 +100,7 @@ export const Register = () => {
                 value={user.email || ""}
                 changeFunction={inputHandler}
                 blurFunction={checkError}
-            />
+                />
             <div className="error">{userError.emailError}</div>
             <CInput
                 className={`inputDesign ${userError.passwordError !== "" ? "inputDesignError" : ""
@@ -111,20 +111,20 @@ export const Register = () => {
                 value={user.password || ""}
                 changeFunction={inputHandler}
                 blurFunction={checkError}
-            />
+                />
             <div className="error">{userError.passwordError}</div>
             <CButton
-                className={"cButtonDesign"}
+                className={"cbuttonDesign"}
                 title={"Register"}
                 emitFunction={registerUser}
-            />
+                />
             <div className="error">{msgError}</div>
-            <div className="accountMsg">Si ya dispones de cuenta, haz click aqui abajo</div>
+            <div className="redirectMsg">Si ya dispones de cuenta, haz click aqui abajo</div>
             <RedirectButton
-                className={"redirectButtonDesign"}
+                className={"RedirectButtonDesign"}
                 title={"Login"}
                 emitFunction={() => navigate("/login")}
-            />
+                />
         </div>
     )
 }
