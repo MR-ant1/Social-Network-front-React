@@ -1,0 +1,22 @@
+
+.cbuttonDesign {
+    height: 2em;
+    width: 10em;
+    background-color: rgb(110, 110, 255);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 2em;
+    color: black;
+    font-family: bold;
+    transition: 0.5s;
+}
+
+.cbuttonDesign:hover {
+    cursor: pointer;
+    transition: 0.2;
+    background-color: rgb(51, 0, 171);
+}
