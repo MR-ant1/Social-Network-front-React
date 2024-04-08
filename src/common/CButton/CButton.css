@@ -1,18 +1,18 @@
 
-.cButtonDesign {
-    height: 3em;
-    width: 18em;
-
-    border-radius: 0.5em;
-
-    background-color: rgb(214, 41, 41);
-    color: white;
-    font-weight: bold;
+.cbuttonDesign {
+    height: 2em;
+    width: 10em;
+    background-color: rgb(110, 110, 255);
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 1em;
+
+    margin-top: 2em;
+    color: black;
+    font-family: bold;
+    transition: 0.5s;
 }
 
 .cButtonDesign:hover {

@@ -1,26 +1,20 @@
 
-.header-design {
+.headerDesign {
 
     height: 12vh;
     width: 100vw;
 
-    background-color: rgb(185, 185, 185);
+    background-color: rgb(33, 33, 33);
 
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-}
-
-.navigatorDesign {
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .logoutDesign {
   color: white;
   font-weight: bold;
-
-  margin: 1em;
 
   transition: 0.3s;
 }

@@ -1,15 +1,18 @@
 
-.NavigatorDesign {
-
+.navigatorDesign {
     color: white;
     font-weight: bold;
 
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
     margin: 1em;
 
     transition: 0.3s;
 }
 
-.NavigatorDesign:hover {
+.navigatorDesign:hover {
 
     transition: 0.3s;
     color: black;

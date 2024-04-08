@@ -2,7 +2,8 @@
 const root = "http://localhost:4001/api/"
 
 export const loginCall = async (user) => {
-  const options = {
+    
+  const clientData = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -11,7 +12,8 @@ export const loginCall = async (user) => {
   };
 
   try {
-    const response = await fetch(`${root}auth/login`, options);
+
+    const response = await fetch(`${root}auth/login`, clientData);
 
     const data = await response.json();
 
