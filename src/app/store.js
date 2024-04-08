@@ -5,6 +5,7 @@ import { persistReducer } from "redux-persist";
 import { thunk } from "redux-thunk";
 import storage from "redux-persist/lib/storage";
 import userSlice from "./slices/userSlice";
+import { encryptTransform } from "redux-persist-transform-encrypt";
 
 
 const reducers = combineReducers({
@@ -14,7 +15,16 @@ const reducers = combineReducers({
 const persistConfig = {
   key: "root",
   storage,
+  transforms: [
+    encryptTransform({
+      secretKey: 'SECRETO',
+      onError: function (error) {
+        throw new Error(error)
+      }
+    })
+  ]
 };
+
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 
