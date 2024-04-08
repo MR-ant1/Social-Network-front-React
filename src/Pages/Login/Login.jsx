@@ -75,6 +75,7 @@ export const Login = () => {
         }`}
             type={"email"}
             name={"email"}
+            placeholder={"email"}
             value={user.email || ""}
             changeFunction={inputHandler}
             blurFunction={checkError}
@@ -85,6 +86,7 @@ export const Login = () => {
         }`}
             type={"password"}
             name={"password"}
+            placeholder={"password"}
             value={user.password || ""}
             changeFunction={inputHandler}
             blurFunction={checkError}
