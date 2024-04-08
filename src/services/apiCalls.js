@@ -1,5 +1,6 @@
 
 const root = "http://localhost:4001/api/"
+import { logout } from "../app/slices/userSlice";
 
 export const loginCall = async (user) => {
 
@@ -18,6 +19,10 @@ export const loginCall = async (user) => {
 
     if (!data.success) {
       throw new Error(data.message);
+    }
+
+    if(data.message === "Cant authentificate user") {
+      dispatchEvent(logout({ tokenData: ""}))
     }
 
     return data;
@@ -53,6 +58,31 @@ export const registerCall = async (user) => {
 }
 
 export const GetPosts = async (token) => {
+  const clientData = {
+      method: "GET",
+      headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`          //adding token in authorization to pass the auth middleware in backend
+      }
+  }
+console.log(clientData)
+  try {
+      const response = await fetch(`${root}posts`, clientData)
+
+      const data = await response.json();
+
+      if (!data.success) {
+          throw new Error(data.message)
+      }
+
+      return data
+
+  } catch (error) {
+      return error
+  }
+}
+
+export const GetProfile = async (token) => {
   const clientData = {
       method: "GET",
       headers: {
