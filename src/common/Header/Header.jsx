@@ -3,17 +3,13 @@ import './Header.css'
 import { Navigator } from '../Navigator/Navigator'
 import { useSelector, useDispatch } from "react-redux";
 import { userData, logout } from "../../app/slices/userSlice";
-import { useEffect } from "react";
 
 export const Header = () => {
 
     const reduxUser = useSelector(userData);
+   
 
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        console.log(reduxUser, "credenciales")
-    }, [reduxUser])
 
     return (
         <div className="headerDesign">
