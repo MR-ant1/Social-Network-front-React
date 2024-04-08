@@ -3,7 +3,7 @@
     height: 88vh;
     width: 100vw;
 
-    background-color: rgb(255, 173, 173);
+    background-color:  rgb(138, 138, 138);
 
     display: flex;
     flex-direction: column;
@@ -15,4 +15,9 @@
     height: 1em;
     width: 28em;
     color: red
+}
+
+.redirectRegisterMsg {
+    margin-top: 3em;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
 }

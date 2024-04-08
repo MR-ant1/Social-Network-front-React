@@ -11,8 +11,10 @@
 
     margin-top: 2em;
     color: black;
-    font-family: bold;
+    font-weight: bold;
     transition: 0.5s;
+    border: solid black 0.1em;
+    border-radius: 1em;
 }
 
 .cbuttonDesign:hover {
