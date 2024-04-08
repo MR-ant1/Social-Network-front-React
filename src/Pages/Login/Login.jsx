@@ -79,7 +79,7 @@ export const Login = () => {
             changeFunction={inputHandler}
             blurFunction={checkError}
             />
-            <div className="error">{user.emailError}</div>
+            <div className="error">{userError.emailError}</div>
             <CInput
             className={`inputDesign ${userError.passwordError !== "" ? "inputDesignError" : ""
         }`}
@@ -89,7 +89,7 @@ export const Login = () => {
             changeFunction={inputHandler}
             blurFunction={checkError}
             />
-            <div className="error">{user.passwordError}</div>
+            <div className="error">{userError.passwordError}</div>
             <CButton
             className={"cbuttonDesign"}
             title={"Login"}
