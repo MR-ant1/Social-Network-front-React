@@ -184,3 +184,28 @@ export const GetMyPosts = async (token) => {
       return error
   }
 }
+
+export const deleteCall = async (id, token) => {
+  const clientData = {
+      method: "DELETE",
+      headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`          
+      }
+  }
+
+  try {
+      const response = await fetch(`${root}posts/${id}`, clientData)
+
+      const data = await response.json();
+
+      if (!data.success) {
+          throw new Error(data.message)
+      }
+
+      return data
+
+  } catch (error) {
+      return error
+  }
+}

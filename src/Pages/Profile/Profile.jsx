@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { CInput } from '../../common/CInput/CInput';
 import { validate } from '../../utils/validations';
 import { CButton } from '../../common/CButton/CButton';
-import { GetMyPosts, GetProfile, UpdateCall } from '../../services/apiCalls';
+import { GetMyPosts, GetProfile, UpdateCall, deleteCall } from '../../services/apiCalls';
 import { PostCard } from '../../common/PostCard/PostCard';
 
 
@@ -41,7 +41,9 @@ export const Profile = () => {
         emailError: ""
     })
 
-    const [msgError, setMsgError] = useState("")
+    const [updateMsgError, setUpdateMsgError] = useState("")
+
+    const [deleteMsgError, setDeleteMsgError] = useState("")
 
     const inputHandler = (e) => {
         setUser((prevState) => ({
@@ -74,7 +76,7 @@ export const Profile = () => {
                 setLoadedData(true)
 
             } catch (error) {
-                setMsgError(error.message)
+                setUpdateMsgError(error.message)
             }
         }
         if (loadedData===false) {
@@ -92,10 +94,21 @@ export const Profile = () => {
             }
 
             const fetched = await UpdateCall(reduxUser?.tokenData?.token, user)
-            setMsgError(fetched.message)
+            setUpdateMsgError(fetched.message)
 
         } catch (error) {
-            setMsgError(error.message)
+            setUpdateMsgError(error.message)
+        }
+    }
+
+    const deletePost = async (id) => {
+        try {
+            const fetched = await deleteCall(id, reduxUser.tokenData.token)
+            setDeleteMsgError(fetched.message)
+            
+
+        } catch (error) {
+            setDeleteMsgError(error.message)
         }
     }
 
@@ -156,7 +169,7 @@ export const Profile = () => {
                         title={"Update Info"}
                         emitFunction={UpdateProfile}
                     />
-                    <div className="error">{msgError}</div>
+                    <div className="error">{updateMsgError}</div>
                 </div>
             
         ) : (
@@ -167,12 +180,18 @@ export const Profile = () => {
                 {posts.slice(0, posts.length).map(
                                 post => {
                                     return (
-                                        <div key={post._id}>
+                                        <div className= 'myPostCard' key={post._id}>
                                             <PostCard
                                                 authorFirstName={post.authorFirstName}
                                                 title={post.title.length > 20 ? post.title.substring(0, 20) : post.title}
                                                 description={post.description.length > 40 ? post.description.substring(0, 40) + "..." : post.description}
                                             />
+                                            <CButton key={post._id}
+                                                className={"createPostButton"}
+                                                title={"Eliminar"}
+                                                emitFunction={(() => deletePost(post._id))}
+                                            />
+                                            <div className="error">{deleteMsgError}</div>
                                         </div>
                                         )
                                     }
