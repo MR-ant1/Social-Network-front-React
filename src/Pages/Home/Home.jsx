@@ -16,7 +16,7 @@ export const Home = () => {
     //const services is an empty array to allow map introduce a card for each value returned by the backend in getServices function
     const [posts, setPosts] = useState([])
     
-        if (posts.length > 0) {        //If there is no posts, postFeed runs.
+        if (posts.length === 0) {        //If there is no posts, postFeed runs.
             const postFeed = async () => {
                 try {
                     const fetched = await GetPosts(reduxUser?.tokenData?.token)

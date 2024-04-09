@@ -109,7 +109,7 @@ export const GetProfile = async (token) => {
 
 export const UpdateCall = async (token, user) => {
   const clientData = {
-      method: "POST",
+      method: "PUT",
       headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`          //adding token in authorization to pass the auth middleware in backend

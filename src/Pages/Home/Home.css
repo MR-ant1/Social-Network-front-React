@@ -5,8 +5,8 @@
 
     background-color:  rgb(138, 138, 138);
 
-    display:wrap;
-    flex-wrap: wrap;
+    display:flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
