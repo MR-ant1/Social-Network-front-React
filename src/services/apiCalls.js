@@ -65,7 +65,7 @@ export const GetPosts = async (token) => {
           "Authorization": `Bearer ${token}`          //adding token in authorization to pass the auth middleware in backend
       }
   }
-console.log(clientData)
+
   try {
       const response = await fetch(`${root}posts`, clientData)
 
