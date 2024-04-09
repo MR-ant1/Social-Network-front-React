@@ -132,3 +132,30 @@ export const UpdateCall = async (token, user) => {
       return error
   }
 }
+
+export const createPostCall = async (token, story) => {
+
+  const clientData = {
+      method: "POST",                    
+      headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}` 
+      },
+      body: JSON.stringify(story)          
+  };
+  try {
+
+      const response = await fetch(`${root}posts`, clientData)    
+
+      const data = await response.json()
+
+      if (!data.success) {
+          throw new Error(data.message)
+      }
+
+      return data
+
+  } catch (error) {
+      return error;
+  }
+}
