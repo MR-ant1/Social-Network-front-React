@@ -7,13 +7,14 @@ import { userData, logout } from "../../app/slices/userSlice";
 export const Header = () => {
 
     const reduxUser = useSelector(userData);
-   
+
 
     const dispatch = useDispatch();
 
     return (
         <div className="headerDesign">
             <Navigator
+            
                 path="/"
                 title="Home"
             />

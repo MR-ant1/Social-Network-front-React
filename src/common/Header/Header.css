@@ -1,15 +1,14 @@
-
 .headerDesign {
 
-    height: 12vh;
-    width: 100vw;
+  height: 12vh;
+  width: 100%;
 
-    background-color: rgb(33, 33, 33);
-
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
+  background-color: rgb(33, 33, 33);
+  
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .logoutDesign {
@@ -23,4 +22,4 @@
   transition: 0.3s;
   color: rgb(160, 160, 160);
   cursor: pointer;
-}  
+}

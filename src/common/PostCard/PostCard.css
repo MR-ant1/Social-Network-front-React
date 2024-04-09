@@ -1,13 +1,12 @@
-
 .postCardDesign {
-    height: 10em;
-    width: 20em;
+    height: 8em;
+    width: 14em;
     border-radius: 2em;
     background-color: rgb(220, 220, 220);
-    margin-bottom: 0.5em;
+    margin-bottom: 5em;
     color: solid rgb(0, 0, 0);
     font-size: 1em;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
