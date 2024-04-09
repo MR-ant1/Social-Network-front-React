@@ -3,10 +3,12 @@ import "./Home.css"
 import { useSelector } from 'react-redux'
 import { useState } from "react"
 import { PostCard } from "../../common/PostCard/PostCard"
-import { GetPosts } from "../../services/apiCalls"
+import { GetPosts, createPostCall } from "../../services/apiCalls"
 import { userData } from "../../app/slices/userSlice"
 import { RedirectButton } from "../../common/RedirectButton/RedirectButton"
 import { useNavigate } from 'react-router-dom'
+import { CInput } from "../../common/CInput/CInput"
+import { CButton } from "../../common/CButton/CButton"
 
 
 export const Home = () => {
@@ -16,7 +18,23 @@ export const Home = () => {
    
     const navigate = useNavigate()
 
+    const inputHandler = (e) => {
+        setStory((prevState) => ({
+            ...prevState,
+            [e.target.name]: e.target.value,
+        }));
+    };
+
+    // const [isDisabled, setIsDisabled] = useState(true)
+
     const [posts, setPosts] = useState([])
+
+    // eslint-disable-next-line no-unused-vars
+    const [ story, setStory ] = useState({
+        title: "",
+        description: ""
+    })
+
     if (reduxUser.tokenData.token) {
 
         if (posts.length === 0) {        //If there is no posts, postFeed runs.
@@ -35,6 +53,26 @@ export const Home = () => {
         }
     }
 
+    const sendPost = async () => {
+        try {
+            for (let elemento in posts) {
+                if (posts[elemento] === "") {
+                    throw new Error("Todos los campos deben estar rellenos")
+                }
+            }
+            const fetched = await createPostCall(reduxUser?.tokenData?.token, story)
+
+            console.log(fetched.data)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+
+
+
     return (
         <div className="homeDesign">
             
@@ -50,13 +88,41 @@ export const Home = () => {
                     className={"registerButtonDesign"}
                     title={"Register"}
                     emitFunction={() => navigate("/register")}
-                    />
-                    
+                    />  
                 </>
                 ) : (
                     
-                    posts.length > 0 ? (
-                        <>
+                     posts.length > 0 ? (
+                    <>
+                        <div className="writeBox">
+                            <CInput 
+                            className={`postTitleInput`}
+                            type={"textarea"}
+                            // disabled={isDisabled}
+                            name={"title"}
+                            placeholder={"Nombre de tu historia"}
+                            changeFunction={inputHandler}
+                            // onClick={() => setIsDisabled(false)}
+                            />
+                            <CInput 
+                            className={`createPostInput`}
+                            type={"textarea"}
+                            // disabled={isDisabled}
+                            name={"description"}
+                            placeholder={"Cuéntale algo a todo el mundo"}
+                            changeFunction={inputHandler}
+                            // onClick={() => setIsDisabled(false)}
+                            />
+                            </div>
+                            
+                            <div className="sendButton">
+                            <CButton
+                            className={"createPostButton"}
+                            title={"Send"}
+                            emitFunction={(sendPost)}
+                            />
+                            </div>
+                           
                         <div className="cardsDesign">
                             {posts.slice(0, posts.length).map(      //Giving a limit to ensure that only brings one time each existing post
                                 post => {
