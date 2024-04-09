@@ -35,7 +35,7 @@ export const Home = () => {
 
     return (
             <>
-            {reduxUser?.tokenData?.token === "" ? (
+            {reduxUser?.tokenData?.token === undefined ? (
                 <>
                 <div className="welcomeMsg">Bienvenido a Posstinger.</div>
                 </>

@@ -90,9 +90,35 @@ export const GetProfile = async (token) => {
           "Authorization": `Bearer ${token}`          //adding token in authorization to pass the auth middleware in backend
       }
   }
+  
+  try {
+      const response = await fetch(`${root}users/profile`, clientData)
+    
+      const data = await response.json();
+
+      if (!data.success) {
+          throw new Error(data.message)
+      }
+
+      return data
+
+  } catch (error) {
+      return error
+  }
+}
+
+export const UpdateCall = async (token, user) => {
+  const clientData = {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`          //adding token in authorization to pass the auth middleware in backend
+      },
+      body: JSON.stringify(user)
+  }
 
   try {
-      const response = await fetch(`${root}posts`, clientData)
+      const response = await fetch(`${root}users/profile`, clientData)
 
       const data = await response.json();
 
