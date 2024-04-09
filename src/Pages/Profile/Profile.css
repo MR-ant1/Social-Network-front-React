@@ -1,0 +1,21 @@
+
+.profileDesign {
+    height: 88vh;
+    width: 100vw;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color:  rgb(138, 138, 138);
+}
+
+.inputsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    font-weight: bold;
+}

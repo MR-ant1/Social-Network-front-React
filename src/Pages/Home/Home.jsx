@@ -1,58 +1,87 @@
 
 import "./Home.css"
 import { useSelector } from 'react-redux'
+import { useState } from "react"
+import { PostCard } from "../../common/PostCard/PostCard"
+import { GetPosts } from "../../services/apiCalls"
+import { userData } from "../../app/slices/userSlice"
+import { RedirectButton } from "../../common/RedirectButton/RedirectButton"
+import { useNavigate } from 'react-router-dom'
+
 
 export const Home = () => {
-    
+
+    // const navigate = useNavigate()
+    const reduxUser = useSelector(userData)
+   
     const navigate = useNavigate()
-    const tokenData = JSON.parse(localStorage.getItem("passport"))
-    // eslint-disable-next-line no-unused-vars
-    const [tokenStorage, setTokenStorage] = useState(tokenData?.token)
 
-    //const services is an empty array to allow map introduce a card for each value returned by the backend in getServices function
-    const [services, setServices] = useState([])
+    const [posts, setPosts] = useState([])
+    if (reduxUser.tokenData.token) {
 
-    useEffect(() => {
-        if (services.length === 0) {                    //If there is no services, GetServices run.
-            const servicesShowcase = async () => {
+        if (posts.length === 0) {        //If there is no posts, postFeed runs.
+            const postFeed = async () => {
                 try {
-                    const fetched = await GetServices()
+                    const fetched = await GetPosts(reduxUser?.tokenData?.token)
 
-                    setServices(fetched.data)   //data obtained from backend is saved into services array.
+                    setPosts(fetched.data)
+                    //data obtained from backend is saved into services array.
 
                 } catch (error) {
                     console.log(error)
                 }
             }
-            servicesShowcase()
+            postFeed()
         }
-    }, [services])
+    }
 
     return (
-        <>
-            {services.length > 0 ? (
-                <div className="backgroundImage">
-                    {services.slice(0, services.length).map(      //Giving a limit to ensure that only brings the 5 existing services
-                        service => {
-                            return (
-                                <div key={service.id}>
-                                    <Card                                       //Using card component designed before with its props in common folder.
-                                        id={"Nª servicio: " + service.id}
-                                        title={service.serviceName}
-                                        description={service.description}
-                                        clickFunction={() => !tokenData?.token  //Depending if user owns a token or not, function sends to login or createAppointment
-                                            ? navigate("/login")
-                                            : navigate("/createAppointment")
-                                        }
-                                    />
-                                </div>
-                            )
-                        })}
-                </div>
-            ) : (                   //While data is being loaded from db, this message shows on the screen
-                <div>LOADING</div>
-            )}
+        <div className="homeDesign">
+            
+                {reduxUser?.tokenData?.token === undefined ? (
+                <>
+                    <div className="welcomeMsg">Bienvenido a Posstinger.</div>
+                    <RedirectButton
+                    className={"loginButtonDesign"}
+                    title={"Login"}
+                    emitFunction={() => navigate("/login")}
+                    />
+                    <RedirectButton
+                    className={"registerButtonDesign"}
+                    title={"Register"}
+                    emitFunction={() => navigate("/register")}
+                    />
+                    
+                </>
+                ) : (
+                    
+                    posts.length > 0 ? (
+                        <>
+                        <div className="cardsDesign">
+                            {posts.slice(0, posts.length).map(      //Giving a limit to ensure that only brings one time each existing post
+                                post => {
+                                    return (
+                                        <div key={post._id}>
+                                            <PostCard
+                                                authorFirstName={post.authorFirstName}
+                                                title={post.title.length > 20 ? post.title.substring(0, 20) : post.title}
+                                                description={post.description.length > 40 ? post.description.substring(0, 40) + "..." : post.description}
 
-        </>
+                                            // clickFunction={() => !tokenData?.token  //Depending if user owns a token or not, function sends to login or createAppointment
+                                            //     ? navigate("/login")
+                                            //     : navigate("/createAppointment")
+                                            // }
+                                            />
+                                        </div>
+                                    )
+                                })}
+                                </div>
+                        </>
+                        
+                    ) : (                   //While data is being loaded from db, this message shows on the screen
+                        <div className="homeDesign">LOADING</div>
+                    ))}
+            
+        </div>
     )
 }

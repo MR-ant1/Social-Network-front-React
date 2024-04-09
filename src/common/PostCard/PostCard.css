@@ -1,0 +1,27 @@
+.postCardDesign {
+    height: 8em;
+    width: 40em;
+    border-radius: 2em;
+    background-color: rgb(220, 220, 220);
+    margin-bottom: 1em;
+    color: solid rgb(0, 0, 0);
+    font-size: 1em;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.postCardDesign:hover {
+    cursor: pointer;
+    background-color: rgb(173, 173, 173);
+    transition: 0.2s;
+}
+
+.titleDesign {
+    margin: 1em;
+    font-weight: bold;
+    font-size: 1rem;
+}
