@@ -5,15 +5,17 @@ import { useState } from "react"
 import { PostCard } from "../../common/PostCard/PostCard"
 import { GetPosts } from "../../services/apiCalls"
 import { userData } from "../../app/slices/userSlice"
+import { RedirectButton } from "../../common/RedirectButton/RedirectButton"
+import { useNavigate } from 'react-router-dom'
+
 
 export const Home = () => {
 
     // const navigate = useNavigate()
     const reduxUser = useSelector(userData)
-    // eslint-disable-next-line no-unused-vars
+   
+    const navigate = useNavigate()
 
-
-    //const services is an empty array to allow map introduce a card for each value returned by the backend in getServices function
     const [posts, setPosts] = useState([])
     if (reduxUser.tokenData.token) {
 
@@ -35,14 +37,27 @@ export const Home = () => {
 
     return (
         <div className="homeDesign">
-            <div className="cardsDesign">
+            
                 {reduxUser?.tokenData?.token === undefined ? (
-
-                    <div className="welcomeMsg">Bienvenido a me cago en mis muertos.</div>
-
+                <>
+                    <div className="welcomeMsg">Bienvenido a Posstinger.</div>
+                    <RedirectButton
+                    className={"loginButtonDesign"}
+                    title={"Login"}
+                    emitFunction={() => navigate("/login")}
+                    />
+                    <RedirectButton
+                    className={"registerButtonDesign"}
+                    title={"Register"}
+                    emitFunction={() => navigate("/register")}
+                    />
+                    
+                </>
                 ) : (
+                    
                     posts.length > 0 ? (
                         <>
+                        <div className="cardsDesign">
                             {posts.slice(0, posts.length).map(      //Giving a limit to ensure that only brings one time each existing post
                                 post => {
                                     return (
@@ -60,11 +75,13 @@ export const Home = () => {
                                         </div>
                                     )
                                 })}
+                                </div>
                         </>
+                        
                     ) : (                   //While data is being loaded from db, this message shows on the screen
                         <div className="homeDesign">LOADING</div>
                     ))}
-            </div>
+            
         </div>
     )
 }

@@ -1,31 +1,56 @@
 
-.welcomeMsg {
-    height: 88vh;
-    /* width: 100vw; */
-    font-size: 2em;
-
-    background-color: rgb(138, 138, 138);
-}
-
 .homeDesign {
 
     height: 88vh;
     width: 100vw;
 
-    background-color: #B2A77F;
+    background-color:  rgb(138, 138, 138);
 
-    display: grid;
+    display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    
     overflow-x: hidden;
 
+}
+
+.welcomeMsg {
+    height: 2em;
+    width: 20em;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-size: 3em;
+
+    background-color: rgb(138, 138, 138);
 }
 
 .cardsDesign {
 
     width: 50vw;
     height: 80vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    /* overflow-y: scroll;
+    overflow-x: hidden; */
+}
+
+.registerButtonDesign {
+    height: 2em;
+    width: 10em;
+
+    border: solid black 0.1em;
+    border-radius: 1em ;
+
+    background-color: rgb(203, 203, 255);
+}
+
+.loginButtonDesign {
+    height: 2em;
+    width: 10em;
+
+    border: solid black 0.1em;
+    border-radius: 1em ;
+
+    background-color: rgb(158, 158, 255);
 }
