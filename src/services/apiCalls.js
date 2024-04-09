@@ -159,3 +159,28 @@ export const createPostCall = async (token, story) => {
       return error;
   }
 }
+
+export const GetMyPosts = async (token) => {
+  const clientData = {
+      method: "GET",
+      headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`          //adding token in authorization to pass the auth middleware in backend
+      }
+  }
+
+  try {
+      const response = await fetch(`${root}posts/own`, clientData)
+
+      const data = await response.json();
+
+      if (!data.success) {
+          throw new Error(data.message)
+      }
+
+      return data
+
+  } catch (error) {
+      return error
+  }
+}

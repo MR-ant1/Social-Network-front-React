@@ -7,13 +7,19 @@ import { useEffect, useState } from 'react';
 import { CInput } from '../../common/CInput/CInput';
 import { validate } from '../../utils/validations';
 import { CButton } from '../../common/CButton/CButton';
-import { GetProfile, UpdateCall } from '../../services/apiCalls';
+import { GetMyPosts, GetProfile, UpdateCall } from '../../services/apiCalls';
+import { PostCard } from '../../common/PostCard/PostCard';
 
 
 export const Profile = () => {
 
     const navigate = useNavigate();
+
     const [loadedData, setLoadedData] = useState(false)
+
+    const [loadedPosts, setLoadedPosts] = useState(false)
+
+    const [posts, setPosts] = useState([])
 
     const reduxUser = useSelector(userData)
 
@@ -77,7 +83,6 @@ export const Profile = () => {
         }, [user])
         
 
-
     const UpdateProfile = async () => {
         try {
             for (let elemento in user) {
@@ -94,9 +99,26 @@ export const Profile = () => {
         }
     }
 
+    useEffect(() => {
+
+        const myPosts = async () => {
+            try {
+                const fetched = await GetMyPosts(reduxUser.tokenData.token)
+
+                setPosts(fetched.data)
+                setLoadedPosts(true)
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        myPosts()
+    }, [posts])    
+    
     return (
-        loadedData ? (
+        
             <div className="profileDesign">
+                {loadedData ? (
                 <div className='inputsContainer'>
                     <CInput
                         className={`inputDesign ${userError.firstNameError !== "" ? "inputDesignError" : ""
@@ -136,8 +158,32 @@ export const Profile = () => {
                     />
                     <div className="error">{msgError}</div>
                 </div>
-            </div>
+            
         ) : (
             <div>loading</div>
-        ))
+        )}
+            {loadedPosts ? (
+              <div className='myAppointments'>
+                {posts.slice(0, posts.length).map(
+                                post => {
+                                    return (
+                                        <div key={post._id}>
+                                            <PostCard
+                                                authorFirstName={post.authorFirstName}
+                                                title={post.title.length > 20 ? post.title.substring(0, 20) : post.title}
+                                                description={post.description.length > 40 ? post.description.substring(0, 40) + "..." : post.description}
+                                            />
+                                        </div>
+                                        )
+                                    }
+                    )
+                }
+            </div>
+             
+            ) : (
+                <div>loading</div>
+            )} 
+            
+        </div>
+    )
 }
