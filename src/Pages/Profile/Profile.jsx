@@ -2,13 +2,14 @@
 import './Profile.css';
 import { userData } from '../../app/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react';
 import { CInput } from '../../common/CInput/CInput';
 import { validate } from '../../utils/validations';
 import { CButton } from '../../common/CButton/CButton';
 import { GetMyPosts, GetProfile, UpdateCall, deleteCall } from '../../services/apiCalls';
 import { PostCard } from '../../common/PostCard/PostCard';
+import { updateDetail } from '../../app/slices/postDetailSlice';
 
 
 export const Profile = () => {
@@ -22,6 +23,8 @@ export const Profile = () => {
     const [posts, setPosts] = useState([])
 
     const reduxUser = useSelector(userData)
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if (!reduxUser?.tokenData.token) {
@@ -60,6 +63,13 @@ export const Profile = () => {
             [e.target.name + "Error"]: error
         }))
     }
+
+    const manageDetail = (post) => {
+        //1. guardamos en RDX
+        dispatch(updateDetail({ post }));
+        //2. navegamos a la vista de detalle
+        navigate("/detail");
+      };
 
         useEffect(() => {
            // eslint-disable-next-line no-unused-vars
@@ -165,7 +175,7 @@ export const Profile = () => {
                     />
                     <div className="error">{userError.emailError}</div>
                     <CButton
-                        className={"cbuttonDesign"}
+                        className={"updateButton"}
                         title={"Update Info"}
                         emitFunction={UpdateProfile}
                     />
@@ -180,7 +190,7 @@ export const Profile = () => {
                 {posts.slice(0, posts.length).map(
                                 post => {
                                     return (
-                                        <div className= 'myPostCard' key={post._id}>
+                                        <div className= 'myPostCard' key={post._id} onClick={() => manageDetail(post)}>
                                             <PostCard
                                                 authorFirstName={post.authorFirstName}
                                                 title={post.title.length > 20 ? post.title.substring(0, 20) : post.title}
