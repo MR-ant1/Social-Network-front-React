@@ -3,7 +3,7 @@ import "./Home.css"
 import { useSelector } from 'react-redux'
 import { useState } from "react"
 import { PostCard } from "../../common/PostCard/PostCard"
-import { GetPosts, createPostCall } from "../../services/apiCalls"
+import { GetPosts, createPostCall, likeCall } from "../../services/apiCalls"
 import { userData } from "../../app/slices/userSlice"
 import { RedirectButton } from "../../common/RedirectButton/RedirectButton"
 import { useNavigate } from 'react-router-dom'
@@ -77,6 +77,21 @@ export const Home = () => {
         }
     }
 
+    const likePost = async () => {
+        try {
+            
+            const fetched = await likeCall(reduxUser?.tokenData?.token, story)
+
+            setMsgError(fetched.message)
+
+            setTimeout(() => {
+                setMsgError("")
+            }, 3000)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 
 
@@ -144,12 +159,14 @@ export const Home = () => {
                                                 authorFirstName={post.authorFirstName}
                                                 title={post.title.length > 20 ? post.title.substring(0, 20) : post.title}
                                                 description={post.description.length > 40 ? post.description.substring(0, 40) + "..." : post.description}
-
-                                            // clickFunction={() => !tokenData?.token  //Depending if user owns a token or not, function sends to login or createAppointment
-                                            //     ? navigate("/login")
-                                            //     : navigate("/createAppointment")
-                                            // }
                                             />
+                                            <div className="likeButton" key={post._id}>
+                                                <CButton
+                                                    className={"likeButton"}
+                                                    title={"like"}
+                                                    emitFunction={likePost}
+                                                />
+                                            </div>
                                         </div>
                                     )
                                 })}

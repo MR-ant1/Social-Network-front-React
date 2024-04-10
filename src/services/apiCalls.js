@@ -209,3 +209,27 @@ export const deleteCall = async (id, token) => {
       return error
   }
 }
+
+export const likeCall = async (id, postId) => {
+  const clientData = {
+      method: "PUT",
+      headers: {
+          "Content-Type": "application/json",        
+      }
+  }
+
+  try {
+      const response = await fetch(`${root}posts/like/${postId}`, clientData)
+
+      const data = await response.json();
+
+      if (!data.success) {
+          throw new Error(data.message)
+      }
+
+      return data
+
+  } catch (error) {
+      return error
+  }
+}

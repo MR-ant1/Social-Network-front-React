@@ -129,3 +129,17 @@
     justify-content: center;
     align-items: center;
 }
+
+.likeButton {
+    height: 2.5em;
+    width: 2.5em;
+
+    border-radius: 1em;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    background-color: red;
+}
