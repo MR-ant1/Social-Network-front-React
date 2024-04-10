@@ -14,11 +14,7 @@
     transition: 0.2s;
 }
 
-.postCardDesign:hover {
-    cursor: pointer;
-    background-color: rgb(173, 173, 173);
-    transition: 0.2s;
-}
+
 
 .titleDesign {
     margin: 1em;

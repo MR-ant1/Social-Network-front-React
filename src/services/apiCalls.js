@@ -210,11 +210,12 @@ export const deleteCall = async (id, token) => {
   }
 }
 
-export const likeCall = async (id, postId) => {
+export const likeCall = async (token, postId) => {
   const clientData = {
       method: "PUT",
       headers: {
-          "Content-Type": "application/json",        
+          "Content-Type": "application/json",  
+          "Authorization": `Bearer ${token}`        
       }
   }
 

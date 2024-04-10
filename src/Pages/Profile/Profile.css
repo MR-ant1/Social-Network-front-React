@@ -96,3 +96,9 @@
     width: 30em;
     height: 10em;
 }
+
+.postCardDesign:hover {
+    cursor: pointer;
+    background-color: rgb(173, 173, 173);
+    transition: 0.2s;
+}
