@@ -11,16 +11,39 @@ export const Header = () => {
 
     const dispatch = useDispatch();
 
-    
+   
 
     return (
         <div className="headerDesign">
             <Navigator
-            
                 path="/"
                 title="Home"
             />
             {reduxUser?.tokenData?.token ? (
+                reduxUser?.tokenData?.user?.role ==='super_admin' ? (
+                    <div className='navigatorDesign'>
+                    <Navigator
+                    path='/superAdmin' title='ADMIN' />
+                    <Navigator
+                        path='/profile' title={reduxUser?.tokenData?.user?.authorFirstName } />
+                    <div
+                        className='logoutDesign'
+                        onClick={() => dispatch(logout({ tokenData: "" }))}>
+                        log out
+                    </div>
+                </div>
+                ) : (
+                    <div className='navigatorDesign'>
+                    <Navigator
+                        path='/profile' title={reduxUser?.tokenData?.user?.authorFirstName } />
+                    <div
+                        className='logoutDesign'
+                        onClick={() => dispatch(logout({ tokenData: "" }))}>
+                        log out
+                    </div>
+                </div>
+                ),
+                
                 <div className='navigatorDesign'>
                     <Navigator
                         path='/profile' title={reduxUser?.tokenData?.user?.authorFirstName } />
