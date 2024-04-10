@@ -13,7 +13,6 @@ import { CButton } from "../../common/CButton/CButton"
 
 export const Home = () => {
 
-    // const navigate = useNavigate()
     const reduxUser = useSelector(userData)
 
     const navigate = useNavigate()

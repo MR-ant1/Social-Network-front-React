@@ -185,7 +185,7 @@ export const GetMyPosts = async (token) => {
   }
 }
 
-export const deleteCall = async (id, token) => {
+export const deletePostCall = async (id, token) => {
   const clientData = {
       method: "DELETE",
       headers: {
@@ -221,6 +221,31 @@ export const likeCall = async (token, postId) => {
 
   try {
       const response = await fetch(`${root}posts/like/${postId}`, clientData)
+
+      const data = await response.json();
+
+      if (!data.success) {
+          throw new Error(data.message)
+      }
+
+      return data
+
+  } catch (error) {
+      return error
+  }
+}
+
+export const usersCall = async (token) => {
+  const clientData = {
+      method: "GET",
+      headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`          //adding token in authorization to pass the auth middleware in backend
+      }
+  }
+
+  try {
+      const response = await fetch(`${root}posts`, clientData)
 
       const data = await response.json();
 
