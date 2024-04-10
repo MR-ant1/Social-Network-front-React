@@ -65,18 +65,16 @@ export const Profile = () => {
     }
 
     const manageDetail = (post) => {
-        //1. guardamos en RDX
-        dispatch(updateDetail({ post }));
-        //2. navegamos a la vista de detalle
+        dispatch(updateDetail({ detail: post }));
         navigate("/detail");
-      };
+    };
 
-        useEffect(() => {
-           // eslint-disable-next-line no-unused-vars
+    useEffect(() => {
+        // eslint-disable-next-line no-unused-vars
         const UserProfile = async () => {
             try {
                 const fetched = await GetProfile(reduxUser?.tokenData?.token)
-                
+
                 setUser({
                     firstName: fetched.data.firstName,
                     lastName: fetched.data.lastName,
@@ -89,11 +87,11 @@ export const Profile = () => {
                 setUpdateMsgError(error.message)
             }
         }
-        if (loadedData===false) {
+        if (loadedData === false) {
             UserProfile()
-        } 
-        }, [user])
-        
+        }
+    }, [user])
+
 
     const UpdateProfile = async () => {
         try {
@@ -115,7 +113,7 @@ export const Profile = () => {
         try {
             const fetched = await deleteCall(id, reduxUser.tokenData.token)
             setDeleteMsgError(fetched.message)
-            
+
 
         } catch (error) {
             setDeleteMsgError(error.message)
@@ -136,12 +134,12 @@ export const Profile = () => {
             }
         }
         myPosts()
-    }, [posts])    
-    
+    }, [posts])
+
     return (
-        
-            <div className="profileDesign">
-                {loadedData ? (
+
+        <div className="profileDesign">
+            {loadedData ? (
                 <div className='inputsContainer'>
                     <CInput
                         className={`inputDesign ${userError.firstNameError !== "" ? "inputDesignError" : ""
@@ -181,38 +179,41 @@ export const Profile = () => {
                     />
                     <div className="error">{updateMsgError}</div>
                 </div>
-            
-        ) : (
-            <div>loading</div>
-        )}
-            {loadedPosts ? (
-              <div className='myAppointments'>
-                {posts.slice(0, posts.length).map(
-                                post => {
-                                    return (
-                                        <div className= 'myPostCard' key={post._id} onClick={() => manageDetail(post)}>
-                                            <PostCard
-                                                authorFirstName={post.authorFirstName}
-                                                title={post.title.length > 20 ? post.title.substring(0, 20) : post.title}
-                                                description={post.description.length > 40 ? post.description.substring(0, 40) + "..." : post.description}
-                                            />
-                                            <CButton key={post._id}
-                                                className={"createPostButton"}
-                                                title={"Eliminar"}
-                                                emitFunction={(() => deletePost(post._id))}
-                                            />
-                                            <div className="error">{deleteMsgError}</div>
-                                        </div>
-                                        )
-                                    }
-                    )
-                }
-            </div>
-             
+
             ) : (
                 <div>loading</div>
-            )} 
-            
+            )}
+            {loadedPosts ? (
+                <div className='myPosts'>
+                    {posts.slice(0, posts.length).map(
+                        post => {
+                            return (
+                                <div className='myPostCard' key={post._id}>
+                                    <PostCard
+                                        authorFirstName={post.authorFirstName}
+                                        title={post.title}
+                                        description={post.description}
+                                        clickFunction={() => manageDetail(post)}
+                                    />
+                                    <div className='deleteButton'>
+                                        <CButton key={post._id}
+                                            className={"deletePostButton"}
+                                            title={"Eliminar"}
+                                            emitFunction={(() => deletePost(post._id))}
+                                        />
+                                        <div className="error">{deleteMsgError}</div>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    )
+                    }
+                </div>
+
+            ) : (
+                <div>loading</div>
+            )}
+
         </div>
     )
 }
