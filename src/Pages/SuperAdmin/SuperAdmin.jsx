@@ -16,12 +16,12 @@ export const SuperAdmin = () => {
 
     const [posts, setPosts] = useState([])
 
-    const [loadedData, setLoadedData] = useState(false)
-
     // eslint-disable-next-line no-unused-vars
     const [msgError, setMsgError] = useState("")
 
     const [users, setUsers] = useState([])
+
+    const [loadedData, setLoadedData] = useState(false)
 
     // const [deleteMsgError, setDeleteMsgError] = useState("")
 
@@ -52,26 +52,15 @@ export const SuperAdmin = () => {
             try {
                 const fetched = await usersCall(reduxUser?.tokenData?.token)
 
-                setMsgError(fetched.message)
-                setUsers({
-                    firstName: fetched.data.firstName,
-                    lastName: fetched.data.lastName,
-                    email: fetched.data.email,
-                    role: fetched.data.role,
-                    likedPosts: fetched.data.likedPosts
-                })
+                setUsers(fetched.data)
 
                 setLoadedData(true)
-
-                setTimeout(() => {
-                    setMsgError("")
-                }, 3000)
 
             } catch (error) {
                 console.log(error)
             }
         }
-        if (loadedData === false) {
+        if (loadedData===false) {
             getUsers()
         }
     }, [users])
@@ -99,6 +88,7 @@ export const SuperAdmin = () => {
             ) : (
                 <div className="postNUserCards">
                     <div className="cardsDesign">
+                    <div>POSTS</div>
                         {posts.slice(0, posts.length).map(
                             post => {
                                 return (
@@ -112,15 +102,13 @@ export const SuperAdmin = () => {
                                 )
                             })}
                     </div>
-                    {users.length === 0 ? (
+                    {loadedData===true ? (
                     <div className="userCards">
+                        <div>USERS</div>
                         {users.slice(0, users.length).map(
                             user => {
-                                return (
-                                    <>
-                                    <div>POSTS</div>
-                                    <div className="postContainer" key={user._id}>
-                                        <div>POSTS</div>
+                                return ( 
+                                    <div className="userContainer" key={user._id}>
                                         <UserCard
                                             firstName={user.firstName}
                                             lastName={user.lastName}
@@ -129,7 +117,6 @@ export const SuperAdmin = () => {
                                             likedPosts={user.likedPosts}
                                         />
                                     </div>
-                                    </>
                                 )
                             })}
                     </div>

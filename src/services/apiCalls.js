@@ -240,19 +240,18 @@ export const usersCall = async (token) => {
       method: "GET",
       headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`          //adding token in authorization to pass the auth middleware in backend
+          "Authorization": `Bearer ${token}`
       }
   }
-
+  
   try {
-      const response = await fetch(`${root}posts`, clientData)
+      const response = await fetch(`${root}users`, clientData)
 
       const data = await response.json();
 
       if (!data.success) {
           throw new Error(data.message)
       }
-
       return data
 
   } catch (error) {
