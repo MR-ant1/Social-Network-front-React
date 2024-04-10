@@ -1,0 +1,25 @@
+.headerDesign {
+
+  height: 12vh;
+  width: 100%;
+
+  background-color: rgb(33, 33, 33);
+  
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.logoutDesign {
+  color: white;
+  font-weight: bold;
+
+  transition: 0.3s;
+}
+
+.logoutDesign:hover {
+  transition: 0.3s;
+  color: rgb(160, 160, 160);
+  cursor: pointer;
+}

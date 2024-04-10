@@ -1,0 +1,23 @@
+
+.loginDesign {
+    height: 88vh;
+    width: 100vw;
+
+    background-color:  rgb(255, 255, 255);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.error {
+    height: 1em;
+    width: 28em;
+    color: red
+}
+
+.redirectRegisterMsg {
+    margin-top: 3em;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}

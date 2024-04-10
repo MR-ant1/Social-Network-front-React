@@ -1,0 +1,104 @@
+
+.profileDesign {
+    height: 88vh;
+    width: 100vw;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+
+    background-color:  rgb(255, 255, 255);
+
+    overflow-x: hidden;
+}
+
+.inputsContainer {
+    height: 100%;
+    width: 30%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border: solid black 0.1em;
+
+    font-weight: bold;
+}
+
+.myPosts {
+    width: 40%;
+    height: 100%;
+
+    margin-top: 2em;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.myPostCard {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.error {
+    width: 6em;
+    height: 4em;;
+}
+
+.updateButton {
+    height: 2em;
+    width: 10em;
+    background-color: rgb(110, 110, 255);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    
+    color: black;
+    font-weight: bold;
+    transition: 0.5s;
+    border: solid black 0.1em;
+    border-radius: 1em;
+}
+
+.deleteButton {
+    height: 2em;
+    width: 10em;
+    background-color: rgb(110, 110, 255);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 2em;
+    color: black;
+    font-weight: bold;
+    transition: 0.5s;
+    border: solid black 0.1em;
+    border-radius: 1em;
+}
+
+.deletePostButton {
+    cursor: pointer;
+}
+
+.postCardDesign {
+    width: 30em;
+    height: 10em;
+}
+
+.postCardDesign:hover {
+    cursor: pointer;
+    background-color: rgb(173, 173, 173);
+    transition: 0.2s;
+}
