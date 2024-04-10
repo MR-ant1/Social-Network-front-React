@@ -11,6 +11,8 @@ export const Header = () => {
 
     const dispatch = useDispatch();
 
+    
+
     return (
         <div className="headerDesign">
             <Navigator
@@ -21,7 +23,7 @@ export const Header = () => {
             {reduxUser?.tokenData?.token ? (
                 <div className='navigatorDesign'>
                     <Navigator
-                        path='/profile' title={reduxUser?.tokenData?.user?.authorFirstName} />
+                        path='/profile' title={reduxUser?.tokenData?.user?.authorFirstName } />
                     <div
                         className='logoutDesign'
                         onClick={() => dispatch(logout({ tokenData: "" }))}>

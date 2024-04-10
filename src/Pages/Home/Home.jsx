@@ -31,7 +31,7 @@ export const Home = () => {
 
     // const [isDisabled, setIsDisabled] = useState(true)
 
-    
+
 
     // eslint-disable-next-line no-unused-vars
     const [story, setStory] = useState({
@@ -41,7 +41,7 @@ export const Home = () => {
 
     if (reduxUser.tokenData.token) {
 
-        if (posts.length === 0) {        //If there is no posts, postFeed runs.
+        if (posts?.length === 0) {        //If there is no posts, postFeed runs.
             const postFeed = async () => {
                 try {
                     const fetched = await GetPosts(reduxUser.tokenData.token)
@@ -125,12 +125,13 @@ export const Home = () => {
                             </div>
 
                             <div className="sendButton">
+                                <div className="error">{msgError}</div>
                                 <CButton
                                     className={"createPostButton"}
                                     title={"Publicar"}
                                     emitFunction={(sendPost)}
                                 />
-                                <div className="error">{msgError}</div>
+
                             </div>
                         </div>
 
