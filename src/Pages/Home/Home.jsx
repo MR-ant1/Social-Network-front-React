@@ -1,9 +1,9 @@
 
 import "./Home.css"
 import { useSelector } from 'react-redux'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { PostCard } from "../../common/PostCard/PostCard"
-import { GetPosts, createPostCall } from "../../services/apiCalls"
+import { GetPosts, createPostCall, likeCall } from "../../services/apiCalls"
 import { userData } from "../../app/slices/userSlice"
 import { RedirectButton } from "../../common/RedirectButton/RedirectButton"
 import { useNavigate } from 'react-router-dom'
@@ -31,7 +31,7 @@ export const Home = () => {
 
     // const [isDisabled, setIsDisabled] = useState(true)
 
-
+    // const userId = reduxUser.tokenData._id
 
     // eslint-disable-next-line no-unused-vars
     const [story, setStory] = useState({
@@ -39,10 +39,10 @@ export const Home = () => {
         description: ""
     })
 
-    if (reduxUser.tokenData.token) {
+    
 
-        if (posts?.length === 0) {        //If there is no posts, postFeed runs.
-            const postFeed = async () => {
+       useEffect(() => {
+         const postFeed = async () => {
                 try {
                     const fetched = await GetPosts(reduxUser.tokenData.token)
 
@@ -54,8 +54,9 @@ export const Home = () => {
                 }
             }
             postFeed()
-        }
-    }
+       }, [posts])
+           
+    
 
     const sendPost = async () => {
         try {
@@ -67,6 +68,8 @@ export const Home = () => {
             const fetched = await createPostCall(reduxUser?.tokenData?.token, story)
 
             setMsgError(fetched.message)
+            setPosts(fetched.data)
+            
 
             setTimeout(() => {
                 setMsgError("")
@@ -77,9 +80,22 @@ export const Home = () => {
         }
     }
 
+    const likePost = async (postId) => {
+        try {
+            
+            const fetched = await likeCall(reduxUser?.tokenData?.token, postId)
 
+            setMsgError(fetched.message)
+            
 
+            setTimeout(() => {
+                setMsgError("")
+            }, 3000)
 
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <div className="homeDesign">
@@ -139,17 +155,19 @@ export const Home = () => {
                             {posts.slice(0, posts.length).map(      //Giving a limit to ensure that only brings one time each existing post
                                 post => {
                                     return (
-                                        <div key={post._id}>
+                                        <div className="postContainer" key={post._id}>
                                             <PostCard
                                                 authorFirstName={post.authorFirstName}
                                                 title={post.title.length > 20 ? post.title.substring(0, 20) : post.title}
                                                 description={post.description.length > 40 ? post.description.substring(0, 40) + "..." : post.description}
-
-                                            // clickFunction={() => !tokenData?.token  //Depending if user owns a token or not, function sends to login or createAppointment
-                                            //     ? navigate("/login")
-                                            //     : navigate("/createAppointment")
-                                            // }
                                             />
+                                            <div className="likeButton" key={post._id}>
+                                                <CButton
+                                                    className={"likeButton"}
+                                                    title={post.likes.length}
+                                                    emitFunction={() => likePost(post._id)}
+                                                />
+                                            </div>
                                         </div>
                                     )
                                 })}

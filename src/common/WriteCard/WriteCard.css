@@ -1,4 +1,5 @@
-.postCardDesign {
+
+.writeCardDesign {
     height: 8em;
     width: 40em;
     border-radius: 2em;
@@ -14,7 +15,11 @@
     transition: 0.2s;
 }
 
-
+.writeCardDesign:hover {
+    cursor: pointer;
+    background-color: rgb(173, 173, 173);
+    transition: 0.2s;
+}
 
 .titleDesign {
     margin: 1em;

@@ -104,6 +104,10 @@ export const Profile = () => {
             const fetched = await UpdateCall(reduxUser?.tokenData?.token, user)
             setUpdateMsgError(fetched.message)
 
+            setTimeout(() => {
+                setUpdateMsgError("")
+            }, 3000)
+
         } catch (error) {
             setUpdateMsgError(error.message)
         }
@@ -114,6 +118,9 @@ export const Profile = () => {
             const fetched = await deleteCall(id, reduxUser.tokenData.token)
             setDeleteMsgError(fetched.message)
 
+            setTimeout(() => {
+                setDeleteMsgError("")
+            }, 3000)
 
         } catch (error) {
             setDeleteMsgError(error.message)
