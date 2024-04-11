@@ -166,7 +166,7 @@ export const Home = () => {
                                             </div>
                                         </div>
                                     )
-                                })}
+                                }).reverse()}
                         </div>
                     </>
 
