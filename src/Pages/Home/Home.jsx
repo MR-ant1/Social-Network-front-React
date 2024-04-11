@@ -1,6 +1,6 @@
 
 import "./Home.css"
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useEffect, useState } from "react"
 import { PostCard } from "../../common/PostCard/PostCard"
 import { GetPosts, createPostCall, likeCall } from "../../services/apiCalls"
@@ -14,6 +14,8 @@ import { CButton } from "../../common/CButton/CButton"
 export const Home = () => {
 
     const reduxUser = useSelector(userData)
+
+    const dispatch = useDispatch()
 
     const navigate = useNavigate()
 
@@ -30,32 +32,31 @@ export const Home = () => {
 
     // const [isDisabled, setIsDisabled] = useState(true)
 
-    // const userId = reduxUser.tokenData._id
-
-    // eslint-disable-next-line no-unused-vars
     const [story, setStory] = useState({
         title: "",
         description: ""
     })
 
-    
 
-       useEffect(() => {
-         const postFeed = async () => {
-                try {
-                    const fetched = await GetPosts(reduxUser.tokenData.token)
 
-                    setPosts(fetched.data)
-                    //Data obtained from backend is saved into services array.
+    useEffect(() => {
+        const postFeed = async () => {
+            try {
+                const fetched = await GetPosts(reduxUser?.tokenData?.token)
 
-                } catch (error) {
-                    console.log(error)
-                }
+                setPosts(fetched.data)
+
+
+            } catch (error) {
+                console.log(error)
             }
+        }
+        if (posts.length === 0) {
             postFeed()
-       }, [posts])
-           
-    
+        }
+    }, [posts])
+
+
 
     const sendPost = async () => {
         try {
@@ -67,32 +68,31 @@ export const Home = () => {
             const fetched = await createPostCall(reduxUser?.tokenData?.token, story)
 
             setMsgError(fetched.message)
-            setPosts(fetched.data)
-            
+            // setPosts(fetched.data)
+
 
             setTimeout(() => {
                 setMsgError("")
             }, 3000)
 
         } catch (error) {
-            console.log(error)
+            setMsgError(error.message)
         }
     }
 
     const likePost = async (postId) => {
         try {
-            
+
             const fetched = await likeCall(reduxUser?.tokenData?.token, postId)
 
             setMsgError(fetched.message)
-            
 
             setTimeout(() => {
                 setMsgError("")
             }, 3000)
 
         } catch (error) {
-            console.log(error)
+            setMsgError(error)
         }
     }
 
@@ -173,7 +173,7 @@ export const Home = () => {
                         </div>
                     </>
 
-                ) : (                   //While data is being loaded from db, this message shows on the screen
+                ) : (                   
                     <div className="homeDesign">LOADING</div>
                 ))}
 
