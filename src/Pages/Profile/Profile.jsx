@@ -24,6 +24,8 @@ export const Profile = () => {
 
     const reduxUser = useSelector(userData)
 
+    const [write, setWrite] = useState("disabled")
+
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -103,6 +105,8 @@ export const Profile = () => {
 
             const fetched = await UpdateCall(reduxUser?.tokenData?.token, user)
             setUpdateMsgError(fetched.message)
+            
+            setWrite("disabled")
 
             setTimeout(() => {
                 setUpdateMsgError("")
@@ -153,6 +157,7 @@ export const Profile = () => {
                             }`}
                         type={"text"}
                         name={"firstName"}
+                        disabled={write}
                         value={user.firstName || ""}
                         changeFunction={inputHandler}
                         blurFunction={checkError}
@@ -163,6 +168,7 @@ export const Profile = () => {
                             }`}
                         type={"text"}
                         name={"lastName"}
+                        disabled={write}
                         value={user.lastName || ""}
                         changeFunction={inputHandler}
                         blurFunction={checkError}
@@ -180,9 +186,9 @@ export const Profile = () => {
                     />
                     <div className="error">{userError.emailError}</div>
                     <CButton
-                        className={"updateButton"}
-                        title={"Update Info"}
-                        emitFunction={UpdateProfile}
+                        className={write === "" ? " updateButton" : "allowButton"}
+                        title={write === "" ? "Actualizar" : "Habilitar"}
+                        emitFunction={write === "" ? UpdateProfile : () => setWrite("")}
                     />
                     <div className="error">{updateMsgError}</div>
                 </div>
