@@ -1,6 +1,6 @@
 
 import "./Home.css"
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useEffect, useState } from "react"
 import { PostCard } from "../../common/PostCard/PostCard"
 import { GetPosts, createPostCall, likeCall } from "../../services/apiCalls"
@@ -14,8 +14,6 @@ import { CButton } from "../../common/CButton/CButton"
 export const Home = () => {
 
     const reduxUser = useSelector(userData)
-
-    const dispatch = useDispatch()
 
     const navigate = useNavigate()
 
@@ -42,7 +40,7 @@ export const Home = () => {
     useEffect(() => {
         const postFeed = async () => {
             try {
-                const fetched = await GetPosts(reduxUser?.tokenData?.token)
+                const fetched = await GetPosts(reduxUser.tokenData.token)
 
                 setPosts(fetched.data)
 
@@ -51,9 +49,9 @@ export const Home = () => {
                 console.log(error)
             }
         }
-        if (posts.length === 0) {
+        
             postFeed()
-        }
+        
     }, [posts])
 
 
@@ -65,10 +63,9 @@ export const Home = () => {
                     throw new Error("Todos los campos deben estar rellenos")
                 }
             }
-            const fetched = await createPostCall(reduxUser?.tokenData?.token, story)
+            const fetched = await createPostCall(reduxUser.tokenData.token, story)
 
             setMsgError(fetched.message)
-            // setPosts(fetched.data)
 
 
             setTimeout(() => {
@@ -81,9 +78,9 @@ export const Home = () => {
     }
 
     const likePost = async (postId) => {
+        
         try {
-
-            const fetched = await likeCall(reduxUser?.tokenData?.token, postId)
+            const fetched = await likeCall(reduxUser.tokenData.token, postId)
 
             setMsgError(fetched.message)
 
