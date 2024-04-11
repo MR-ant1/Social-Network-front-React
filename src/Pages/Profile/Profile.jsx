@@ -10,6 +10,7 @@ import { CButton } from '../../common/CButton/CButton';
 import { GetMyPosts, GetProfile, UpdateCall, deletePostCall } from '../../services/apiCalls';
 import { PostCard } from '../../common/PostCard/PostCard';
 import { updateDetail } from '../../app/slices/postDetailSlice';
+// import toast, {Toaster} from 'react-hot-toast'
 
 
 export const Profile = () => {
@@ -28,8 +29,10 @@ export const Profile = () => {
 
     const dispatch = useDispatch()
 
+    // const deleteNotify = () => toast(deleteMsgError);
+
     useEffect(() => {
-        if (!reduxUser?.tokenData.token) {
+        if (!reduxUser.tokenData.token) {
             navigate("/")
         }
     }, [reduxUser])
@@ -75,8 +78,8 @@ export const Profile = () => {
         // eslint-disable-next-line no-unused-vars
         const UserProfile = async () => {
             try {
-                const fetched = await GetProfile(reduxUser?.tokenData?.token)
-
+                const fetched = await GetProfile(reduxUser.tokenData.token)
+                console.log(fetched)
                 setUser({
                     firstName: fetched.data.firstName,
                     lastName: fetched.data.lastName,
@@ -89,10 +92,27 @@ export const Profile = () => {
                 setUpdateMsgError(error.message)
             }
         }
-        if (loadedData === false) {
+        if (!loadedData) {
             UserProfile()
         }
     }, [user])
+
+    useEffect(() => {
+        const myPosts = async () => {
+            try {
+                const fetched = await GetMyPosts(reduxUser.tokenData.token)
+
+                setPosts(fetched.data)
+                setLoadedPosts(true)
+
+                if(posts.length===0) {setLoadedPosts(false)}
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        myPosts()
+    }, [posts])
 
 
     const UpdateProfile = async () => {
@@ -131,25 +151,11 @@ export const Profile = () => {
         }
     }
 
-    useEffect(() => {
-
-        const myPosts = async () => {
-            try {
-                const fetched = await GetMyPosts(reduxUser.tokenData.token)
-
-                setPosts(fetched.data)
-                setLoadedPosts(true)
-
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        myPosts()
-    }, [posts])
 
     return (
-
+       
         <div className="profileDesign">
+            
             {loadedData ? (
                 <div className='inputsContainer'>
                     <CInput
@@ -192,7 +198,6 @@ export const Profile = () => {
                     />
                     <div className="error">{updateMsgError}</div>
                 </div>
-
             ) : (
                 <div>loading</div>
             )}
@@ -213,6 +218,7 @@ export const Profile = () => {
                                             className={"deletePostButton"}
                                             title={"Eliminar"}
                                             emitFunction={(() => deletePost(post._id))}
+                                            
                                         />
                                         <div className="error">{deleteMsgError}</div>
                                     </div>
@@ -224,7 +230,7 @@ export const Profile = () => {
                 </div>
 
             ) : (
-                <div>loading</div>
+                <div>Aun no hay Posts</div>
             )}
 
         </div>

@@ -9,6 +9,8 @@ import { RedirectButton } from "../../common/RedirectButton/RedirectButton"
 import { useNavigate } from 'react-router-dom'
 import { PostInput } from "../../common/PostInput/PostInput"
 import { CButton } from "../../common/CButton/CButton"
+import { updateDetail } from "../../app/slices/postDetailSlice"
+import { useDispatch } from 'react-redux'
 
 
 export const Home = () => {
@@ -17,6 +19,8 @@ export const Home = () => {
 
     const navigate = useNavigate()
 
+    const dispatch = useDispatch()
+
     const [posts, setPosts] = useState([])
 
     const inputHandler = (e) => {
@@ -24,6 +28,11 @@ export const Home = () => {
             ...prevState,
             [e.target.name]: e.target.value,
         }));
+    };
+
+    const manageDetail = (post) => {
+        dispatch(updateDetail({ detail: post }));
+        navigate("/detail");
     };
 
     const [msgError, setMsgError] = useState("")
@@ -118,20 +127,17 @@ export const Home = () => {
                                 <PostInput
                                     className={`postTitleInput`}
                                     type={"text"}
-                                    // disabled={isDisabled}
                                     name={"title"}
                                     placeholder={"Titulo de tu historia"}
                                     changeFunction={inputHandler}
-                                // onClick={() => setIsDisabled(false)}
+                                
                                 />
                                 <PostInput
                                     className={`createPostInput`}
                                     type={"textarea"}
-                                    // disabled={isDisabled}
                                     name={"description"}
                                     placeholder={"Sorprende al mundo con su trama"}
                                     changeFunction={inputHandler}
-                                // onClick={() => setIsDisabled(false)}
                                 />
                             </div>
 
@@ -155,6 +161,7 @@ export const Home = () => {
                                                 authorFirstName={post.authorFirstName}
                                                 title={post.title.length > 20 ? post.title.substring(0, 20) : post.title}
                                                 description={post.description.length > 40 ? post.description.substring(0, 40) + "..." : post.description}
+                                                clickFunction={() => manageDetail(post)}
                                             />
                                             <div className="likeButton" key={post._id}>
                                                 <CButton
