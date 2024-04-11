@@ -3,14 +3,24 @@ import './Register.css'
 import { useNavigate } from 'react-router-dom'
 import { CButton } from '../../common/CButton/CButton';
 import { CInput } from "../../common/CInput/CInput"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RedirectButton } from '../../common/RedirectButton/RedirectButton';
 import { registerCall } from '../../services/apiCalls';
 import { validate } from '../../utils/validations'
+import { userData } from '../../app/slices/userSlice';
+import { useSelector } from 'react-redux'
 
 export const Register = () => {
 
     const navigate = useNavigate();
+
+    const reduxUser = useSelector(userData)
+
+    useEffect(() => {
+        if (reduxUser.tokenData.token) {
+            navigate("/")
+        }
+    }, [reduxUser.tokenData.token])
 
     const [user, setUser] = useState({
         firstName: "",

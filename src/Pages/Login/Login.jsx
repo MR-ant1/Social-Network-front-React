@@ -2,21 +2,30 @@
 import './Login.css'
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { decodeToken } from "react-jwt"
 import { CInput } from '../../common/CInput/CInput'
 import { CButton } from '../../common/CButton/CButton'
 import { loginCall } from '../../services/apiCalls'
-import { login } from '../../app/slices/userSlice'
+import { login, userData } from '../../app/slices/userSlice'
 import { validate } from '../../utils/validations'
 import { RedirectButton } from '../../common/RedirectButton/RedirectButton'
+import { useSelector } from 'react-redux'
 
 
 export const Login = () => {
 
     const navigate = useNavigate()
 
+    const reduxUser = useSelector(userData)
+
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        if (reduxUser.tokenData.token) {
+            navigate("/")
+        }
+    }, [reduxUser.tokenData.token])
 
     const [user, setUser] = useState({
         email: "",

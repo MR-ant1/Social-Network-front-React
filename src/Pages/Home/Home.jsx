@@ -41,7 +41,6 @@ export const Home = () => {
         const postFeed = async () => {
             try {
                 const fetched = await GetPosts(reduxUser.tokenData.token)
-
                 setPosts(fetched.data)
 
 

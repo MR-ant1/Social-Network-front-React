@@ -8,10 +8,7 @@ export const Header = () => {
 
     const reduxUser = useSelector(userData);
 
-
     const dispatch = useDispatch();
-
-   
 
     return (
         <div className="headerDesign">
@@ -22,7 +19,6 @@ export const Header = () => {
             {reduxUser.tokenData.token ? (
                 reduxUser.tokenData.user.role ==='super_admin' ? (
                     <div className='navigatorDesign'>
-                       { console.log("otra cosa")}
                     <Navigator
                     path='/superAdmin' title='ADMIN' />
                     <Navigator
@@ -36,7 +32,6 @@ export const Header = () => {
                 ) : (
                    
                     <div className='navigatorDesign'>
-                         {console.log("ha entrado")}
                     <Navigator
                         path='/profile' title={reduxUser.tokenData.user.authorFirstName } />
                     <div
