@@ -5,10 +5,10 @@
 
     background-color:  rgb(255, 255, 255);
 
-    display: flex;
-    flex-direction: column;
+    display: wrap;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     
     overflow-x: hidden;
 }
@@ -17,9 +17,6 @@
     height: 100em;
     width: 100em;
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
 }
 
 .cardsDesign {
