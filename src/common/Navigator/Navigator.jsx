@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 
 // eslint-disable-next-line react/prop-types
 export const Navigator = ({path, title}) => {
-
+console.log(title, "algo")
     const navigate = useNavigate()
 
     return (
