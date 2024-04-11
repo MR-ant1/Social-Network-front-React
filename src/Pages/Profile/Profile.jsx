@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { CInput } from '../../common/CInput/CInput';
 import { validate } from '../../utils/validations';
 import { CButton } from '../../common/CButton/CButton';
-import { GetMyPosts, GetProfile, UpdateCall, deleteCall } from '../../services/apiCalls';
+import { GetMyPosts, GetProfile, UpdateCall, deletePostCall } from '../../services/apiCalls';
 import { PostCard } from '../../common/PostCard/PostCard';
 import { updateDetail } from '../../app/slices/postDetailSlice';
 
@@ -115,7 +115,7 @@ export const Profile = () => {
 
     const deletePost = async (id) => {
         try {
-            const fetched = await deleteCall(id, reduxUser.tokenData.token)
+            const fetched = await deletePostCall(id, reduxUser.tokenData.token)
             setDeleteMsgError(fetched.message)
 
             setTimeout(() => {
