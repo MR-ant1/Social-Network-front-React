@@ -32,7 +32,7 @@ export const Home = () => {
 
     const manageDetail = (post) => {
         dispatch(updateDetail({ detail: post }));
-        navigate("/detail");
+        navigate("/detailHome");
     };
 
     const [msgError, setMsgError] = useState("")

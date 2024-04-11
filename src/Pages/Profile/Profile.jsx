@@ -209,8 +209,8 @@ export const Profile = () => {
                                 <div className='myPostCard' key={post._id}>
                                     <PostCard
                                         authorFirstName={post.authorFirstName}
-                                        title={post.title}
-                                        description={post.description}
+                                        title={post.title.length > 20 ? post.title.substring(0, 20) : post.title}
+                                        description={post.description.length > 40 ? post.description.substring(0, 40) + "..." : post.description}
                                         clickFunction={() => manageDetail(post)}
                                     />
                                     <div className='deleteButton'>
@@ -220,8 +220,9 @@ export const Profile = () => {
                                             emitFunction={(() => deletePost(post._id))}
                                             
                                         />
-                                        <div className="error">{deleteMsgError}</div>
+                                        
                                     </div>
+                                    <div className="error">{deleteMsgError}</div>
                                 </div>
                             )
                         }

@@ -50,6 +50,9 @@
 .error {
     width: 6em;
     height: 4em;;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 .updateButton {
@@ -102,12 +105,12 @@
 
 .deleteButton {
     height: 2em;
-    width: 10em;
+    width: 6em;
     background-color: rgb(110, 110, 255);
 
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-evenly;
     align-items: center;
 
     margin-top: 2em;
@@ -118,13 +121,22 @@
     border-radius: 1em;
 }
 
-.deletePostButton {
+.deletePostButton{
+    width: 8em;
+    display: flex;
+
+    justify-content: center;
+}
+
+.deleteButton:hover {
     cursor: pointer;
+    background-color: rgb(58, 58, 152);
+    transition: 0.3s;
 }
 
 .postCardDesign {
     width: 30em;
-    height: 10em;
+    height: 30em;
 }
 
 .postCardDesign:hover {
