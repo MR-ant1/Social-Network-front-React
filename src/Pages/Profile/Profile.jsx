@@ -228,7 +228,6 @@ export const Profile = () => {
                                         />
                                         
                                     </div>
-                                    {/* <div className="error">{deleteMsgError}</div> */}
                                 </div>
                             )
                         }
@@ -241,7 +240,7 @@ export const Profile = () => {
             )}
         <ToastContainer 
         position="top-center"
-        autoClose={5000}
+        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

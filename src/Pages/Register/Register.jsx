@@ -9,6 +9,9 @@ import { registerCall } from '../../services/apiCalls';
 import { validate } from '../../utils/validations'
 import { userData } from '../../app/slices/userSlice';
 import { useSelector } from 'react-redux'
+import { ToastContainer, toast } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export const Register = () => {
 
@@ -56,6 +59,18 @@ export const Register = () => {
         }))
     }
 
+    useEffect(() => {
+        toast.dismiss()
+        userError.firstNameError && 
+        toast.error(userError.firstNameError)
+        userError.lastNameError && 
+        toast.error(userError.lastNameError)
+        userError.emailError && 
+        toast.error(userError.emailError)
+        userError.passwordError && 
+        toast.error(userError.passwordError)
+        }, [userError])
+
     const registerUser = async () => {
         try {
             for (let elemento in user) {
@@ -66,12 +81,14 @@ export const Register = () => {
             
             const fetched = await registerCall(user)
 
-            setMsgError(fetched.message)
+            if (fetched.success === true) {
+                toast.success(fetched.message)
+            }
             
             if (fetched.success === true){
             setTimeout(() => {    //After ending registration, page redirects to home.
                 navigate("/")
-            }, 500)}else navigate("/register")
+            }, 2000)}else navigate("/register")
 
         } catch (error) {
             setMsgError(error.message)
@@ -89,7 +106,7 @@ export const Register = () => {
                 changeFunction={inputHandler}
                 blurFunction={checkError}
                 />
-            <div className="error">{userError.firstNameError}</div>
+           
             <CInput
                 className={`inputDesign ${userError.lastNameError !== "" ? "inputDesignError" : ""
                     }`}
@@ -100,7 +117,7 @@ export const Register = () => {
                 changeFunction={inputHandler}
                 blurFunction={checkError}
                 />
-            <div className="error">{userError.lastNameError}</div>
+           
             <CInput
                 className={`inputDesign ${userError.emailError !== "" ? "inputDesignError" : ""
                     }`}
@@ -111,7 +128,7 @@ export const Register = () => {
                 changeFunction={inputHandler}
                 blurFunction={checkError}
                 />
-            <div className="error">{userError.emailError}</div>
+            
             <CInput
                 className={`inputDesign ${userError.passwordError !== "" ? "inputDesignError" : ""
                     }`}
@@ -122,19 +139,31 @@ export const Register = () => {
                 changeFunction={inputHandler}
                 blurFunction={checkError}
                 />
-            <div className="error">{userError.passwordError}</div>
+            
             <CButton
                 className={"cbuttonDesign"}
                 title={"Register"}
                 emitFunction={registerUser}
                 />
-            <div className="error">{msgError}</div>
+           
             <div className="redirectMsg">Si ya dispones de cuenta, haz click aqui abajo</div>
             <RedirectButton
                 className={"RedirectButtonDesign"}
                 title={"Login"}
                 emitFunction={() => navigate("/login")}
-                />
+            />
+            <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
         </div>
     )
 }

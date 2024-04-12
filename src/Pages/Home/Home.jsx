@@ -67,15 +67,14 @@ export const Home = () => {
             try {
                 const fetched = await GetPosts(reduxUser.tokenData.token)
                 setPosts(fetched.data)
-
+               
 
             } catch (error) {
                 console.log(error)
             }
-        }
-        
-            postFeed()
-        
+        } 
+        if (reduxUser.tokenData.token && posts.length === 0) {
+            postFeed()}
     }, [posts])
 
 
@@ -92,8 +91,8 @@ export const Home = () => {
 
             if (fetched.success === true) {
                 toast.success(fetched.message)
-            }else toast.error(fetched.message)
-
+            }else {toast.error(fetched.message)}
+        
             } catch (error) {
                 console.log(error.message)
             }
@@ -106,7 +105,9 @@ export const Home = () => {
 
             if (fetched.message === "Liked!") {
                 toast.success(fetched.message)
-            }else toast.error(fetched.message)
+            }else toast.info(fetched.message)
+
+            
 
         } catch (error) {
             console.log(error)
@@ -116,7 +117,7 @@ export const Home = () => {
     return (
         <div className="homeDesign">
 
-            {reduxUser?.tokenData?.token === undefined ? (
+            {reduxUser.tokenData.token === undefined ? (
                 <>
                     <div className="welcomeMsg">Bienvenido a Posstinger.</div>
                     <RedirectButton
@@ -192,7 +193,7 @@ export const Home = () => {
                 ))}
             <ToastContainer 
         position="top-center"
-        autoClose={5000}
+        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

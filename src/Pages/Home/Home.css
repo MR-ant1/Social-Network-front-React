@@ -91,7 +91,11 @@
     width: 30em;
 
     border-radius: 0.5em;
-    border: white
+    border: white;
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
 }
 
 .createPostButton {
@@ -130,6 +134,11 @@
     align-items: center;
 }
 
+.createPostButton:hover {
+    cursor: pointer;
+    background-color: rgb(78, 78, 193);;
+}
+
 .likeButton {
     height: 2.5em;
     width: 2.5em;
@@ -142,6 +151,11 @@
     align-items: center;
 
     background-color: rgb(89, 0, 255);
+}
+
+.likeButton:hover {
+    cursor: pointer;
+    background-color: rgb(63, 0, 181);
 }
 
 .postContainer {
