@@ -26,6 +26,9 @@ export const Home = () => {
 
     const [posts, setPosts] = useState([])
 
+
+
+
     const inputHandler = (e) => {
         setStory((prevState) => ({
             ...prevState,
@@ -38,10 +41,11 @@ export const Home = () => {
         navigate("/detailHome");
     };
 
-  
+
 
     // const [isDisabled, setIsDisabled] = useState(true)
 
+    // eslint-disable-next-line no-unused-vars
     const [story, setStory] = useState({
         title: "",
         description: ""
@@ -55,11 +59,11 @@ export const Home = () => {
 
     useEffect(() => {
         toast.dismiss()
-        storyError.titleError && 
-        toast.warn(storyError.titleError)
-        storyError.descriptionError && 
-        toast.warn(storyError.descriptionError)
-        }, [storyError])
+        storyError.titleError &&
+            toast.warn(storyError.titleError)
+        storyError.descriptionError &&
+            toast.warn(storyError.descriptionError)
+    }, [storyError])
 
 
     useEffect(() => {
@@ -67,14 +71,15 @@ export const Home = () => {
             try {
                 const fetched = await GetPosts(reduxUser.tokenData.token)
                 setPosts(fetched.data)
-               
+   
 
             } catch (error) {
                 console.log(error)
             }
-        } 
+        }
         if (reduxUser.tokenData.token && posts.length === 0) {
-            postFeed()}
+            postFeed()
+        }
     }, [posts])
 
 
@@ -87,27 +92,39 @@ export const Home = () => {
                     toast.error("All fields are required")
                 }
             }
+          
             const fetched = await createPostCall(reduxUser.tokenData.token, story)
+
+            if (fetched.data && fetched.data._id) {
+                setPosts([...posts, fetched.data])
+            }
+            setStory({
+                title:"",
+                description:""
+            })
+            
 
             if (fetched.success === true) {
                 toast.success(fetched.message)
-            }else {toast.error(fetched.message)}
-        
-            } catch (error) {
-                console.log(error.message)
-            }
+            } else { toast.error(fetched.message) }
+
+        } catch (error) {
+            console.log(error.message)
+        }
     }
 
     const likePost = async (postId) => {
-        
+
         try {
             const fetched = await likeCall(reduxUser.tokenData.token, postId)
-
+            console.log(fetched)
             if (fetched.message === "Liked!") {
                 toast.success(fetched.message)
-            }else toast.info(fetched.message)
+            } else toast.info(fetched.message)
 
-            
+            if (fetched.data && fetched.data._id) {
+                setPosts(posts.map(post => post._id === postId ? fetched.data
+                 : post))}
 
         } catch (error) {
             console.log(error)
@@ -141,14 +158,16 @@ export const Home = () => {
                                     className={`postTitleInput`}
                                     type={"text"}
                                     name={"title"}
+                                    value={story.title}
                                     placeholder={"Titulo de tu historia"}
                                     changeFunction={inputHandler}
-                                
+
                                 />
                                 <PostInput
                                     className={`createPostInput`}
-                                    type={"textarea"}
+                                    type={"text"}
                                     name={"description"}
+                                    value={story.description}
                                     placeholder={"Sorprende al mundo con su trama"}
                                     changeFunction={inputHandler}
                                 />
@@ -188,21 +207,21 @@ export const Home = () => {
                         </div>
                     </>
 
-                ) : (                   
+                ) : (
                     <div className="homeDesign">LOADING</div>
                 ))}
-            <ToastContainer 
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        />
+            <ToastContainer
+                position="top-center"
+                autoClose={300}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
         </div>
     )
 }

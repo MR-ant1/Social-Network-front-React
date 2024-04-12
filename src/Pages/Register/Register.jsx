@@ -41,8 +41,6 @@ export const Register = () => {
 
     })
 
-    const [msgError, setMsgError] = useState("")
-
     const inputHandler = (e) => {
         setUser((prevState) => ({
             ...prevState,
@@ -75,7 +73,8 @@ export const Register = () => {
         try {
             for (let elemento in user) {
                 if (user[elemento] === "") {
-                    throw new Error("Todos los campos deben estar rellenos")
+                    throw new Error("All fields are required"),
+                    toast.error("All fields are required")
                 }
             }
             
@@ -91,7 +90,7 @@ export const Register = () => {
             }, 2000)}else navigate("/register")
 
         } catch (error) {
-            setMsgError(error.message)
+            console.log(error.message)
         }
     }
     return (

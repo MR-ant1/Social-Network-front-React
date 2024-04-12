@@ -21,8 +21,6 @@ export const Profile = () => {
 
     const [loadedData, setLoadedData] = useState(false)
 
-    const [loadedPosts, setLoadedPosts] = useState(false)
-
     const [posts, setPosts] = useState([])
 
     const reduxUser = useSelector(userData)
@@ -107,15 +105,14 @@ export const Profile = () => {
                 const fetched = await GetMyPosts(reduxUser.tokenData.token)
 
                 setPosts(fetched.data)
-                setLoadedPosts(true)
-
-                if(posts.length===0) {setLoadedPosts(false)}
 
             } catch (error) {
                 console.log(error)
             }
         }
-        myPosts()
+
+        if (reduxUser.tokenData.token && posts.length === 0) {
+        myPosts()}
     }, [posts])
 
 
@@ -150,8 +147,11 @@ export const Profile = () => {
             if (fetched.success === false){
                 toast.error(fetched.message)
                 }
-            
 
+            setPosts(    
+                posts.filter((post) => post._id !== id) 
+            )
+            
         } catch (error) {
             console.log(error.message)
         }
@@ -207,7 +207,7 @@ export const Profile = () => {
             ) : (
                 <div>loading</div>
             )}
-            {loadedPosts ? (
+            {posts.length > 0 ? (
                 <div className='myPosts'>
                     {posts.slice(0, posts.length).map(
                         post => {
@@ -224,14 +224,12 @@ export const Profile = () => {
                                             className={"deletePostButton"}
                                             title={"Eliminar"}
                                             emitFunction={(() => deletePost(post._id))}
-                                            
                                         />
-                                        
                                     </div>
                                 </div>
                             )
                         }
-                    )
+                    ).reverse()
                     }
                 </div>
 

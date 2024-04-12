@@ -50,7 +50,7 @@ export const SuperAdmin = () => {
     useEffect(() => {
         const getUsers = async () => {
             try {
-                const fetched = await usersCall(reduxUser?.tokenData?.token)
+                const fetched = await usersCall(reduxUser.tokenData.token)
 
                 setUsers(fetched.data)
 
@@ -60,7 +60,7 @@ export const SuperAdmin = () => {
                 console.log(error)
             }
         }
-        if (loadedData===false) {
+        if (loadedData === false) {
             getUsers()
         }
     }, [users])
@@ -88,7 +88,7 @@ export const SuperAdmin = () => {
             ) : (
                 <div className="postNUserCards">
                     <div className="cardsDesign">
-                    <div>POSTS</div>
+                        <div>POSTS</div>
                         {posts.slice(0, posts.length).map(
                             post => {
                                 return (
@@ -102,24 +102,24 @@ export const SuperAdmin = () => {
                                 )
                             })}
                     </div>
-                    {loadedData===true ? (
-                    <div className="userCards">
-                        <div>USERS</div>
-                        {users.slice(0, users.length).map(
-                            user => {
-                                return ( 
-                                    <div className="userContainer" key={user._id}>
-                                        <UserCard
-                                            firstName={user.firstName}
-                                            lastName={user.lastName}
-                                            email={user.email}
-                                            role={user.role}
-                                            likedPosts={user.likedPosts}
-                                        />
-                                    </div>
-                                )
-                            })}
-                    </div>
+                    {loadedData === true ? (
+                        <div className="userCards">
+                            <div>USERS</div>
+                            {users.slice(0, users.length).map(
+                                user => {
+                                    return (
+                                        <div className="userContainer" key={user._id}>
+                                            <UserCard
+                                                firstName={user.firstName}
+                                                lastName={user.lastName}
+                                                email={user.email}
+                                                role={user.role}
+                                                likedPosts={user.likedPosts}
+                                            />
+                                        </div>
+                                    )
+                                })}
+                        </div>
                     ) : (
                         <div className="loadingUsers">LOADING</div>
                     )}

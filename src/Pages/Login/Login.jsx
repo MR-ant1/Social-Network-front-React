@@ -25,7 +25,10 @@ export const Login = () => {
 
     useEffect(() => {
         if (reduxUser.tokenData.token) {
-            navigate("/")
+            setTimeout(() => {
+                navigate("/")
+            }, 1000)
+            
         }
     }, [reduxUser.tokenData.token])
 
@@ -67,23 +70,24 @@ export const Login = () => {
 
         try {
             const fetched = await loginCall(user);
-
-            if (fetched.message === "User logged succesfully") {
-                toast.success(fetched.message)
-            }
             
             if (fetched.token) {
                 const decoded = decodeToken(fetched.token)
+
+                if (fetched.success === true) {
+                    toast.success(fetched.message)
+                }
 
                 const passInfo = {
                     token: fetched.token,
                     user: decoded
                 };
-                dispatch(login({ tokenData: passInfo }));
+                dispatch(login({ tokenData: passInfo })
+            );
 
                 setTimeout(() => {
                     navigate("/")
-                }, 2000)
+                }, 1000)
             }
         } catch (error) {
             console.log(error.message);
@@ -128,7 +132,7 @@ export const Login = () => {
             />
             <ToastContainer
                 position="top-center"
-                autoClose={2000}
+                autoClose={1000}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick
