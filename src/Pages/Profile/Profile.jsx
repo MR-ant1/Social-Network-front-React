@@ -10,7 +10,9 @@ import { CButton } from '../../common/CButton/CButton';
 import { GetMyPosts, GetProfile, UpdateCall, deletePostCall } from '../../services/apiCalls';
 import { PostCard } from '../../common/PostCard/PostCard';
 import { updateDetail } from '../../app/slices/postDetailSlice';
-// import toast, {Toaster} from 'react-hot-toast'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 export const Profile = () => {
@@ -29,8 +31,6 @@ export const Profile = () => {
 
     const dispatch = useDispatch()
 
-    // const deleteNotify = () => toast(deleteMsgError);
-
     useEffect(() => {
         if (!reduxUser.tokenData.token) {
             navigate("/")
@@ -48,10 +48,6 @@ export const Profile = () => {
         lastNameError: "",
         emailError: ""
     })
-
-    const [updateMsgError, setUpdateMsgError] = useState("")
-
-    const [deleteMsgError, setDeleteMsgError] = useState("")
 
     const inputHandler = (e) => {
         setUser((prevState) => ({
@@ -75,7 +71,7 @@ export const Profile = () => {
     };
 
     useEffect(() => {
-        // eslint-disable-next-line no-unused-vars
+
         const UserProfile = async () => {
             try {
                 const fetched = await GetProfile(reduxUser.tokenData.token)
@@ -89,13 +85,21 @@ export const Profile = () => {
                 setLoadedData(true)
 
             } catch (error) {
-                setUpdateMsgError(error.message)
+                console.log(error.message)
             }
         }
         if (!loadedData) {
             UserProfile()
         }
     }, [user])
+
+    useEffect(() => {
+    toast.dismiss()
+    userError.firstNameError && 
+    toast.warn(userError.firstNameError)
+    userError.lastNameError && 
+    toast.warn(userError.lastNameError)
+    }, [userError])
 
     useEffect(() => {
         const myPosts = async () => {
@@ -124,30 +128,32 @@ export const Profile = () => {
             }
 
             const fetched = await UpdateCall(reduxUser?.tokenData?.token, user)
-            setUpdateMsgError(fetched.message)
+            if (fetched.success === true) {
+                toast.success(fetched.message)
+            }else  toast.error(fetched.message)
             
             setWrite("disabled")
 
-            setTimeout(() => {
-                setUpdateMsgError("")
-            }, 3000)
+            
 
         } catch (error) {
-            setUpdateMsgError(error.message)
+            console.log(error.message)
         }
     }
 
     const deletePost = async (id) => {
         try {
             const fetched = await deletePostCall(id, reduxUser.tokenData.token)
-            setDeleteMsgError(fetched.message)
-
-            setTimeout(() => {
-                setDeleteMsgError("")
-            }, 3000)
+            if (fetched.success === true){
+            toast.success(fetched.message)
+            }
+            if (fetched.success === false){
+                toast.error(fetched.message)
+                }
+            
 
         } catch (error) {
-            setDeleteMsgError(error.message)
+            console.log(error.message)
         }
     }
 
@@ -168,7 +174,7 @@ export const Profile = () => {
                         changeFunction={inputHandler}
                         blurFunction={checkError}
                     />
-                    <div className="error">{userError.firstNameError}</div>
+                    
                     <CInput
                         className={`inputDesign ${userError.lastNameError !== "" ? "inputDesignError" : ""
                             }`}
@@ -179,7 +185,7 @@ export const Profile = () => {
                         changeFunction={inputHandler}
                         blurFunction={checkError}
                     />
-                    <div className="error">{userError.lastNameError}</div>
+                  
                     <CInput
                         className={`inputDesign ${userError.emailError !== "" ? "inputDesignError" : ""
                             }`}
@@ -190,13 +196,13 @@ export const Profile = () => {
                         changeFunction={inputHandler}
                         blurFunction={checkError}
                     />
-                    <div className="error">{userError.emailError}</div>
+                 
                     <CButton
                         className={write === "" ? " updateButton" : "allowButton"}
                         title={write === "" ? "Actualizar" : "Habilitar"}
                         emitFunction={write === "" ? UpdateProfile : () => setWrite("")}
                     />
-                    <div className="error">{updateMsgError}</div>
+              
                 </div>
             ) : (
                 <div>loading</div>
@@ -222,7 +228,7 @@ export const Profile = () => {
                                         />
                                         
                                     </div>
-                                    <div className="error">{deleteMsgError}</div>
+                                    {/* <div className="error">{deleteMsgError}</div> */}
                                 </div>
                             )
                         }
@@ -233,7 +239,18 @@ export const Profile = () => {
             ) : (
                 <div>Aun no hay Posts</div>
             )}
-
+        <ToastContainer 
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        />
         </div>
     )
 }

@@ -11,6 +11,9 @@ import { PostInput } from "../../common/PostInput/PostInput"
 import { CButton } from "../../common/CButton/CButton"
 import { updateDetail } from "../../app/slices/postDetailSlice"
 import { useDispatch } from 'react-redux'
+import { ToastContainer, toast } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 export const Home = () => {
@@ -35,7 +38,7 @@ export const Home = () => {
         navigate("/detailHome");
     };
 
-    const [msgError, setMsgError] = useState("")
+  
 
     // const [isDisabled, setIsDisabled] = useState(true)
 
@@ -44,6 +47,19 @@ export const Home = () => {
         description: ""
     })
 
+    // eslint-disable-next-line no-unused-vars
+    const [storyError, setStoryError] = useState({
+        titleError: "",
+        descriptionError: ""
+    })
+
+    useEffect(() => {
+        toast.dismiss()
+        storyError.titleError && 
+        toast.warn(storyError.titleError)
+        storyError.descriptionError && 
+        toast.warn(storyError.descriptionError)
+        }, [storyError])
 
 
     useEffect(() => {
@@ -66,23 +82,21 @@ export const Home = () => {
 
     const sendPost = async () => {
         try {
-            for (let elemento in posts) {
-                if (posts[elemento] === "") {
-                    throw new Error("Todos los campos deben estar rellenos")
+            for (let elemento in story) {
+                if (story[elemento] === "") {
+                    throw new Error("All fields are required"),
+                    toast.error("All fields are required")
                 }
             }
             const fetched = await createPostCall(reduxUser.tokenData.token, story)
 
-            setMsgError(fetched.message)
+            if (fetched.success === true) {
+                toast.success(fetched.message)
+            }else toast.error(fetched.message)
 
-
-            setTimeout(() => {
-                setMsgError("")
-            }, 3000)
-
-        } catch (error) {
-            setMsgError(error.message)
-        }
+            } catch (error) {
+                console.log(error.message)
+            }
     }
 
     const likePost = async (postId) => {
@@ -90,14 +104,12 @@ export const Home = () => {
         try {
             const fetched = await likeCall(reduxUser.tokenData.token, postId)
 
-            setMsgError(fetched.message)
-
-            setTimeout(() => {
-                setMsgError("")
-            }, 3000)
+            if (fetched.message === "Liked!") {
+                toast.success(fetched.message)
+            }else toast.error(fetched.message)
 
         } catch (error) {
-            setMsgError(error)
+            console.log(error)
         }
     }
 
@@ -142,7 +154,6 @@ export const Home = () => {
                             </div>
 
                             <div className="sendButton">
-                                <div className="error">{msgError}</div>
                                 <CButton
                                     className={"createPostButton"}
                                     title={"Publicar"}
@@ -179,7 +190,18 @@ export const Home = () => {
                 ) : (                   
                     <div className="homeDesign">LOADING</div>
                 ))}
-
+            <ToastContainer 
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        />
         </div>
     )
 }

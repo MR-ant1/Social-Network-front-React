@@ -47,13 +47,13 @@
     align-items: center;
 }
 
-.error {
+/* .error {
     width: 6em;
     height: 4em;;
     display:flex;
     flex-direction: row;
     justify-content: space-around;
-}
+} */
 
 .updateButton {
     height: 2em;
