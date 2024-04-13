@@ -47,14 +47,6 @@
     align-items: center;
 }
 
-/* .error {
-    width: 6em;
-    height: 4em;;
-    display:flex;
-    flex-direction: row;
-    justify-content: space-around;
-} */
-
 .updateButton {
     height: 2em;
     width: 10em;

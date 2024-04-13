@@ -102,9 +102,9 @@ export const PostDetail = () => {
         emitFunction={(() => navigate('/profile'))}
       />
     </div>
-      <div className="userFields">
+      <div className="postFields">
         <CInput
-          className={`inputDesign ${postError.titleError !== "" ? "inputDesignError" : ""
+          className={`titleInputDesign ${postError.titleError !== "" ? "inputDesignError" : ""
             }`}
           type={"text"}
           name={"title"}
@@ -115,7 +115,7 @@ export const PostDetail = () => {
         />
 
         <CInput
-          className={`inputDesign ${postError.descriptionError !== "" ? "inputDesignError" : ""
+          className={`descriptionInputDesign ${postError.descriptionError !== "" ? "inputDesignError" : ""
             }`}
           type={"text"}
           name={"description"}
