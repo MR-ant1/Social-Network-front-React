@@ -73,7 +73,6 @@ export const Profile = () => {
         const UserProfile = async () => {
             try {
                 const fetched = await GetProfile(reduxUser.tokenData.token)
-                console.log(fetched)
                 setUser({
                     firstName: fetched.data.firstName,
                     lastName: fetched.data.lastName,

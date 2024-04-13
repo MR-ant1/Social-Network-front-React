@@ -41,10 +41,6 @@ export const Home = () => {
         navigate("/detailHome");
     };
 
-
-
-    // const [isDisabled, setIsDisabled] = useState(true)
-
     // eslint-disable-next-line no-unused-vars
     const [story, setStory] = useState({
         title: "",
