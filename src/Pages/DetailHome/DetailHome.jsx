@@ -7,9 +7,12 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { PostCard } from "../../common/PostCard/PostCard";
 import { CButton } from "../../common/CButton/CButton";
+import { userData } from "../../app/slices/userSlice";
 
 export const PostDetailHome = () => {
   const detailRdx = useSelector(detailData);
+
+  const reduxUser = useSelector(userData)
   const navigate = useNavigate();
 
 
@@ -19,6 +22,13 @@ export const PostDetailHome = () => {
       navigate("/");
     }
   }, [detailRdx]);
+
+  useEffect(() => {
+  
+    if (!reduxUser.tokenData?.token) {
+      navigate("/");
+    }
+  }, [reduxUser]);
 
 
   return <div className="detailDesign">

@@ -33,6 +33,11 @@ export const PostDetail = () => {
 
   const [write, setWrite] = useState("disabled")
 
+  useEffect(() => {
+    if (!reduxUser.tokenData.token) {
+        navigate("/")
+    }
+}, [reduxUser])
 
   useEffect(() => {
     toast.dismiss()
