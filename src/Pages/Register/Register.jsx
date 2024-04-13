@@ -3,14 +3,27 @@ import './Register.css'
 import { useNavigate } from 'react-router-dom'
 import { CButton } from '../../common/CButton/CButton';
 import { CInput } from "../../common/CInput/CInput"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RedirectButton } from '../../common/RedirectButton/RedirectButton';
 import { registerCall } from '../../services/apiCalls';
 import { validate } from '../../utils/validations'
+import { userData } from '../../app/slices/userSlice';
+import { useSelector } from 'react-redux'
+import { ToastContainer, toast } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export const Register = () => {
 
     const navigate = useNavigate();
+
+    const reduxUser = useSelector(userData)
+
+    useEffect(() => {
+        if (reduxUser.tokenData.token) {
+            navigate("/")
+        }
+    }, [reduxUser.tokenData.token])
 
     const [user, setUser] = useState({
         firstName: "",
@@ -28,8 +41,6 @@ export const Register = () => {
 
     })
 
-    const [msgError, setMsgError] = useState("")
-
     const inputHandler = (e) => {
         setUser((prevState) => ({
             ...prevState,
@@ -46,25 +57,40 @@ export const Register = () => {
         }))
     }
 
+    useEffect(() => {
+        toast.dismiss()
+        userError.firstNameError && 
+        toast.error(userError.firstNameError)
+        userError.lastNameError && 
+        toast.error(userError.lastNameError)
+        userError.emailError && 
+        toast.error(userError.emailError)
+        userError.passwordError && 
+        toast.error(userError.passwordError)
+        }, [userError])
+
     const registerUser = async () => {
         try {
             for (let elemento in user) {
                 if (user[elemento] === "") {
-                    throw new Error("Todos los campos deben estar rellenos")
+                    throw new Error("All fields are required"),
+                    toast.error("All fields are required")
                 }
             }
             
             const fetched = await registerCall(user)
 
-            setMsgError(fetched.message)
+            if (fetched.success === true) {
+                toast.success(fetched.message)
+            }
             
             if (fetched.success === true){
             setTimeout(() => {    //After ending registration, page redirects to home.
                 navigate("/")
-            }, 500)}else navigate("/register")
+            }, 2000)}else navigate("/register")
 
         } catch (error) {
-            setMsgError(error.message)
+            console.log(error.message)
         }
     }
     return (
@@ -79,7 +105,7 @@ export const Register = () => {
                 changeFunction={inputHandler}
                 blurFunction={checkError}
                 />
-            <div className="error">{userError.firstNameError}</div>
+           
             <CInput
                 className={`inputDesign ${userError.lastNameError !== "" ? "inputDesignError" : ""
                     }`}
@@ -90,7 +116,7 @@ export const Register = () => {
                 changeFunction={inputHandler}
                 blurFunction={checkError}
                 />
-            <div className="error">{userError.lastNameError}</div>
+           
             <CInput
                 className={`inputDesign ${userError.emailError !== "" ? "inputDesignError" : ""
                     }`}
@@ -101,7 +127,7 @@ export const Register = () => {
                 changeFunction={inputHandler}
                 blurFunction={checkError}
                 />
-            <div className="error">{userError.emailError}</div>
+            
             <CInput
                 className={`inputDesign ${userError.passwordError !== "" ? "inputDesignError" : ""
                     }`}
@@ -112,19 +138,31 @@ export const Register = () => {
                 changeFunction={inputHandler}
                 blurFunction={checkError}
                 />
-            <div className="error">{userError.passwordError}</div>
+            
             <CButton
                 className={"cbuttonDesign"}
                 title={"Register"}
                 emitFunction={registerUser}
                 />
-            <div className="error">{msgError}</div>
+           
             <div className="redirectMsg">Si ya dispones de cuenta, haz click aqui abajo</div>
             <RedirectButton
                 className={"RedirectButtonDesign"}
                 title={"Login"}
                 emitFunction={() => navigate("/login")}
-                />
+            />
+            <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
         </div>
     )
 }

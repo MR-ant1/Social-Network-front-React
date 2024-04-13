@@ -6,6 +6,7 @@ import { Register } from '../Register/Register';
 import { Profile } from '../Profile/Profile'
 import { PostDetail } from "../Detail/Detail";
 import { SuperAdmin } from "../SuperAdmin/SuperAdmin";
+import { PostDetailHome } from "../DetailHome/DetailHome";
 
 export const Body = () => {
   return (
@@ -17,6 +18,7 @@ export const Body = () => {
       <Route path="/profile" element={<Profile />} />
       <Route path="/detail" element={<PostDetail />} />
       <Route path="/superAdmin" element={<SuperAdmin />} />
+      <Route path="/detailHome" element={<PostDetailHome />} />
     </Routes>
   );
 };

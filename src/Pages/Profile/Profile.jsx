@@ -10,6 +10,9 @@ import { CButton } from '../../common/CButton/CButton';
 import { GetMyPosts, GetProfile, UpdateCall, deletePostCall } from '../../services/apiCalls';
 import { PostCard } from '../../common/PostCard/PostCard';
 import { updateDetail } from '../../app/slices/postDetailSlice';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 export const Profile = () => {
@@ -18,16 +21,16 @@ export const Profile = () => {
 
     const [loadedData, setLoadedData] = useState(false)
 
-    const [loadedPosts, setLoadedPosts] = useState(false)
-
     const [posts, setPosts] = useState([])
 
     const reduxUser = useSelector(userData)
 
+    const [write, setWrite] = useState("disabled")
+
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (!reduxUser?.tokenData.token) {
+        if (!reduxUser.tokenData.token) {
             navigate("/")
         }
     }, [reduxUser])
@@ -43,10 +46,6 @@ export const Profile = () => {
         lastNameError: "",
         emailError: ""
     })
-
-    const [updateMsgError, setUpdateMsgError] = useState("")
-
-    const [deleteMsgError, setDeleteMsgError] = useState("")
 
     const inputHandler = (e) => {
         setUser((prevState) => ({
@@ -70,11 +69,10 @@ export const Profile = () => {
     };
 
     useEffect(() => {
-        // eslint-disable-next-line no-unused-vars
+
         const UserProfile = async () => {
             try {
-                const fetched = await GetProfile(reduxUser?.tokenData?.token)
-
+                const fetched = await GetProfile(reduxUser.tokenData.token)
                 setUser({
                     firstName: fetched.data.firstName,
                     lastName: fetched.data.lastName,
@@ -84,13 +82,37 @@ export const Profile = () => {
                 setLoadedData(true)
 
             } catch (error) {
-                setUpdateMsgError(error.message)
+                console.log(error.message)
             }
         }
-        if (loadedData === false) {
+        if (!loadedData) {
             UserProfile()
         }
     }, [user])
+
+    useEffect(() => {
+    toast.dismiss()
+    userError.firstNameError && 
+    toast.warn(userError.firstNameError)
+    userError.lastNameError && 
+    toast.warn(userError.lastNameError)
+    }, [userError])
+
+    useEffect(() => {
+        const myPosts = async () => {
+            try {
+                const fetched = await GetMyPosts(reduxUser.tokenData.token)
+
+                setPosts(fetched.data)
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        if (reduxUser.tokenData.token && posts.length === 0) {
+        myPosts()}
+    }, [posts])
 
 
     const UpdateProfile = async () => {
@@ -102,50 +124,43 @@ export const Profile = () => {
             }
 
             const fetched = await UpdateCall(reduxUser?.tokenData?.token, user)
-            setUpdateMsgError(fetched.message)
+            if (fetched.success === true) {
+                toast.success(fetched.message)
+            }else  toast.error(fetched.message)
+            
+            setWrite("disabled")
 
-            setTimeout(() => {
-                setUpdateMsgError("")
-            }, 3000)
+            
 
         } catch (error) {
-            setUpdateMsgError(error.message)
+            console.log(error.message)
         }
     }
 
     const deletePost = async (id) => {
         try {
             const fetched = await deletePostCall(id, reduxUser.tokenData.token)
-            setDeleteMsgError(fetched.message)
+            if (fetched.success === true){
+            toast.success(fetched.message)
+            }
+            if (fetched.success === false){
+                toast.error(fetched.message)
+                }
 
-            setTimeout(() => {
-                setDeleteMsgError("")
-            }, 3000)
-
+            setPosts(    
+                posts.filter((post) => post._id !== id) 
+            )
+            
         } catch (error) {
-            setDeleteMsgError(error.message)
+            console.log(error.message)
         }
     }
 
-    useEffect(() => {
-
-        const myPosts = async () => {
-            try {
-                const fetched = await GetMyPosts(reduxUser.tokenData.token)
-
-                setPosts(fetched.data)
-                setLoadedPosts(true)
-
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        myPosts()
-    }, [posts])
 
     return (
-
+       
         <div className="profileDesign">
+            
             {loadedData ? (
                 <div className='inputsContainer'>
                     <CInput
@@ -153,21 +168,23 @@ export const Profile = () => {
                             }`}
                         type={"text"}
                         name={"firstName"}
+                        disabled={write}
                         value={user.firstName || ""}
                         changeFunction={inputHandler}
                         blurFunction={checkError}
                     />
-                    <div className="error">{userError.firstNameError}</div>
+                    
                     <CInput
                         className={`inputDesign ${userError.lastNameError !== "" ? "inputDesignError" : ""
                             }`}
                         type={"text"}
                         name={"lastName"}
+                        disabled={write}
                         value={user.lastName || ""}
                         changeFunction={inputHandler}
                         blurFunction={checkError}
                     />
-                    <div className="error">{userError.lastNameError}</div>
+                  
                     <CInput
                         className={`inputDesign ${userError.emailError !== "" ? "inputDesignError" : ""
                             }`}
@@ -178,19 +195,18 @@ export const Profile = () => {
                         changeFunction={inputHandler}
                         blurFunction={checkError}
                     />
-                    <div className="error">{userError.emailError}</div>
+                 
                     <CButton
-                        className={"updateButton"}
-                        title={"Update Info"}
-                        emitFunction={UpdateProfile}
+                        className={write === "" ? " updateButton" : "allowButton"}
+                        title={write === "" ? "Actualizar" : "Habilitar"}
+                        emitFunction={write === "" ? UpdateProfile : () => setWrite("")}
                     />
-                    <div className="error">{updateMsgError}</div>
+              
                 </div>
-
             ) : (
                 <div>loading</div>
             )}
-            {loadedPosts ? (
+            {posts.length > 0 ? (
                 <div className='myPosts'>
                     {posts.slice(0, posts.length).map(
                         post => {
@@ -198,8 +214,8 @@ export const Profile = () => {
                                 <div className='myPostCard' key={post._id}>
                                     <PostCard
                                         authorFirstName={post.authorFirstName}
-                                        title={post.title}
-                                        description={post.description}
+                                        title={post.title.length > 20 ? post.title.substring(0, 20) : post.title}
+                                        description={post.description.length > 40 ? post.description.substring(0, 40) + "..." : post.description}
                                         clickFunction={() => manageDetail(post)}
                                     />
                                     <div className='deleteButton'>
@@ -208,19 +224,29 @@ export const Profile = () => {
                                             title={"Eliminar"}
                                             emitFunction={(() => deletePost(post._id))}
                                         />
-                                        <div className="error">{deleteMsgError}</div>
                                     </div>
                                 </div>
                             )
                         }
-                    )
+                    ).reverse()
                     }
                 </div>
 
             ) : (
-                <div>loading</div>
+                <div>Aun no hay Posts</div>
             )}
-
+        <ToastContainer 
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        />
         </div>
     )
 }
