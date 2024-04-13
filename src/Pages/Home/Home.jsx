@@ -113,7 +113,7 @@ export const Home = () => {
 
         try {
             const fetched = await likeCall(reduxUser.tokenData.token, postId)
-            console.log(fetched)
+
             if (fetched.message === "Liked!") {
                 toast.success(fetched.message)
             } else toast.info(fetched.message)
