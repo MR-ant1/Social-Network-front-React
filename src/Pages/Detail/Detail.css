@@ -38,3 +38,70 @@
     justify-content: flex-end;
     align-items: center; 
 }
+
+.postFields {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.titleInputDesign {
+    height: 3em;
+    width: 28em;
+    margin: 2em;
+}
+
+.descriptionInputDesign {
+    height: 14em;
+    width: 28em;
+    margin: 2em;
+}
+
+.updateButton {
+    height: 2em;
+    width: 10em;
+    background-color: rgb(110, 110, 255);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    
+    color: black;
+    font-weight: bold;
+    transition: 0.3s;
+    border: solid black 0.1em;
+    border-radius: 1em;
+}
+
+.updateButton:hover {
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: rgb(85, 85, 255)
+}
+
+.allowButton{
+    height: 2em;
+    width: 10em;
+    background-color: rgb(8, 114, 207);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    
+    color: black;
+    font-weight: bold;
+    transition: 0.5s;
+    border: solid black 0.1em;
+    border-radius: 1em;
+}
+
+.allowButton:hover{
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: rgb(10, 94, 189);
+}

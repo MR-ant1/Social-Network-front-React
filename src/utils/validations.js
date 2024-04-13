@@ -43,6 +43,14 @@ export const validate = (type, value) => {
               return "El id de servicio tiene que ser un numero entre 1 y 5"
             }
             return ""
+
+            case "title":
+            case "description":
+          if (value.length < 3) {
+            return "Por favor, el campo debe de tener mínimo tres caracteres.";
+          }
+    
+          return "";
             
         default:
           console.log("No matches found")

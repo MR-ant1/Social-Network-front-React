@@ -14,7 +14,7 @@
 }
 
 .postNUserCards {
-    height: 100em;
+    min-height: 100em;
     width: 100em;
     display: flex;
 }
