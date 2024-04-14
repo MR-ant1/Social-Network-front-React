@@ -5,15 +5,18 @@ export const validate = (type, value) => {
     // eslint-disable-next-line no-useless-escape
     const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
+    const nameRegex = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u
+
     switch (type) {
         case "name":
         case "nombre":
         case "surname":
         case "firstName":
         case "lastName":
-          if (value.length < 3) {
-            return "Por favor, el nombre debe de tener mínimo tres caracteres.";
+          if (!nameRegex.test(value) || value.length > 50) {
+            return "Por favor, el nombre debe tener menos de 50 caracteres.";
           }
+
     
           return "";
     

@@ -91,11 +91,11 @@ export const Profile = () => {
     }, [user])
 
     useEffect(() => {
-    toast.dismiss()
-    userError.firstNameError && 
-    toast.warn(userError.firstNameError)
-    userError.lastNameError && 
-    toast.warn(userError.lastNameError)
+        toast.dismiss()
+        userError.firstNameError &&
+            toast.warn(userError.firstNameError)
+        userError.lastNameError &&
+            toast.warn(userError.lastNameError)
     }, [userError])
 
     useEffect(() => {
@@ -111,7 +111,8 @@ export const Profile = () => {
         }
 
         if (reduxUser.tokenData.token && posts.length === 0) {
-        myPosts()}
+            myPosts()
+        }
     }, [posts])
 
 
@@ -126,11 +127,11 @@ export const Profile = () => {
             const fetched = await UpdateCall(reduxUser?.tokenData?.token, user)
             if (fetched.success === true) {
                 toast.success(fetched.message)
-            }else  toast.error(fetched.message)
-            
+            } else toast.error(fetched.message)
+
             setWrite("disabled")
 
-            
+
 
         } catch (error) {
             console.log(error.message)
@@ -140,17 +141,17 @@ export const Profile = () => {
     const deletePost = async (id) => {
         try {
             const fetched = await deletePostCall(id, reduxUser.tokenData.token)
-            if (fetched.success === true){
-            toast.success(fetched.message)
+            if (fetched.success === true) {
+                toast.success(fetched.message)
             }
-            if (fetched.success === false){
+            if (fetched.success === false) {
                 toast.error(fetched.message)
-                }
+            }
 
-            setPosts(    
-                posts.filter((post) => post._id !== id) 
+            setPosts(
+                posts.filter((post) => post._id !== id)
             )
-            
+
         } catch (error) {
             console.log(error.message)
         }
@@ -158,11 +159,11 @@ export const Profile = () => {
 
 
     return (
-       
+
         <div className="profileDesign">
-            
             {loadedData ? (
                 <div className='inputsContainer'>
+                    <div className='editInstruction'>click sobre un post para editarlo y sobre habilitar para cambiar tu información personal</div> 
                     <CInput
                         className={`inputDesign ${userError.firstNameError !== "" ? "inputDesignError" : ""
                             }`}
@@ -173,7 +174,7 @@ export const Profile = () => {
                         changeFunction={inputHandler}
                         blurFunction={checkError}
                     />
-                    
+
                     <CInput
                         className={`inputDesign ${userError.lastNameError !== "" ? "inputDesignError" : ""
                             }`}
@@ -184,7 +185,7 @@ export const Profile = () => {
                         changeFunction={inputHandler}
                         blurFunction={checkError}
                     />
-                  
+
                     <CInput
                         className={`inputDesign ${userError.emailError !== "" ? "inputDesignError" : ""
                             }`}
@@ -195,13 +196,13 @@ export const Profile = () => {
                         changeFunction={inputHandler}
                         blurFunction={checkError}
                     />
-                 
+
                     <CButton
                         className={write === "" ? " updateButton" : "allowButton"}
                         title={write === "" ? "Actualizar" : "Habilitar"}
                         emitFunction={write === "" ? UpdateProfile : () => setWrite("")}
                     />
-              
+
                 </div>
             ) : (
                 <div>loading</div>
@@ -211,6 +212,7 @@ export const Profile = () => {
                     {posts.slice(0, posts.length).map(
                         post => {
                             return (
+
                                 <div className='myPostCard' key={post._id}>
                                     <PostCard
                                         authorFirstName={post.authorFirstName}
@@ -226,6 +228,7 @@ export const Profile = () => {
                                         />
                                     </div>
                                 </div>
+
                             )
                         }
                     ).reverse()
@@ -235,18 +238,18 @@ export const Profile = () => {
             ) : (
                 <div>Aun no hay Posts</div>
             )}
-        <ToastContainer 
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        />
+            <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
         </div>
     )
 }
