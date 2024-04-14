@@ -199,7 +199,7 @@ export const Home = () => {
                                             <div className="likeContainer" key={post._id} >
                                                 <CButton
                                                 className={"likeButton"}
-                                                title={<Heart fill="red" />}
+                                                title={<Heart fill="white" />}
                                                 emitFunction={() => likePost(post._id)}
                                                 />
                                                 <div className="likesNum">{post.likes.length}</div>
