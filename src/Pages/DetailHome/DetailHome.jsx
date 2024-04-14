@@ -11,6 +11,7 @@ import { userData } from "../../app/slices/userSlice";
 import { likeCall } from "../../services/apiCalls";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch } from "react-redux";
+import { Heart } from "lucide-react";
 
 export const PostDetailHome = () => {
 
@@ -49,7 +50,7 @@ export const PostDetailHome = () => {
 
         dispatch(updateDetail({detail: fetched.data}))
 
-        if (fetched.message === "Liked!") {
+        if (fetched.message === "Like") {
             toast.success(fetched.message)
         } else toast.info(fetched.message)
 
@@ -81,10 +82,11 @@ export const PostDetailHome = () => {
     }
     <div className="likeContainer" key={detailRdx.detail?._id}>
     <CButton
-        className={"likeButton"}
-        title={detailRdx.detail?.likes.length}
-        emitFunction={() => likePost(detailRdx.detail?._id)}
-    />
+      className={"likeButton"}
+      title={<Heart fill="red" />}
+      emitFunction={() => likePost(detailRdx.detail?._id)}
+      />
+      <div className="likesNum">{detailRdx.detail?.likes.length}</div>
     </div>
     <ToastContainer
                 position="top-center"
