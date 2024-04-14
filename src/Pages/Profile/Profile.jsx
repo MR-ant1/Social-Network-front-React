@@ -199,7 +199,7 @@ export const Profile = () => {
 
                     <CButton
                         className={write === "" ? " updateButton" : "allowButton"}
-                        title={write === "" ? "Actualizar" : "Habilitar"}
+                        title={write === "" ? "Actualizar" : <img src="img/EditIcon.png" alt="editIcon"></img>}
                         emitFunction={write === "" ? UpdateProfile : () => setWrite("")}
                     />
 

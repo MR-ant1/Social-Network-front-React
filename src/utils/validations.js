@@ -14,7 +14,7 @@ export const validate = (type, value) => {
         case "firstName":
         case "lastName":
           if (!nameRegex.test(value) || value.length > 50) {
-            return "Por favor, el nombre debe tener menos de 50 caracteres.";
+            return "Por favor, el nombre debe tener un formato valido.";
           }
 
     

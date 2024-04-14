@@ -18,7 +18,7 @@ export const Header = () => {
             <div className='webTitle'>
                 <IconNavigator
                 path="/"
-                title={<img src='img/iconPNG.png' alt="Logo" />}
+                title="INICIO"
                 />
             </div>
             </div>

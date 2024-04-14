@@ -325,6 +325,9 @@ It works like feed with a map iterating cards, but this time all users and posts
 ### ACKNOWLEDGEMENTS :raised_hands:
 Big shout out like always to the GeeksHubs team for giving me the change of learning in this wonderful world of developping! 
 
+Leaving here thanks and link to the owner of the "edit" icon in profile view:
+<a href="https://www.freepik.es/icono/herramienta-lapiz_7310483#fromView=search&page=1&position=1&uuid=68f7fdd7-d363-4410-a8c8-88ecb178cc83">Icono de Hasymi</a>
+
 [def]: #Acknowledgements-
 
 :arrow_up: [TABLE OF CONTENTS](#TABLE_OF_CONTENTS-open_file_folder)
