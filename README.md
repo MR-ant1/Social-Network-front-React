@@ -31,7 +31,7 @@ This Front-end proyect allows to create and to log in a user to interact with PO
 - Consult all posts from most recent to older from the rest of users.
 - Check your own posts or update your account personal data in profile section.
 - Creation of new posts where you add a title and an explanation for your idea or story.
-- Check and delete your own posts.
+- Check, edit and delete your own posts.
 - See any post in detail and edit your own posts content in profile.
 - share likes or remove them from any post.
 - Consulting all existent users and posts data (super_admin)
@@ -296,7 +296,7 @@ In home view and profile too, you can click in cards and go to their detail page
 <details>
 <summary>SUPER ADMIN</summary>
 
-It works like feed with a map iterating cards, but this time all users and posts are bringed from DB and only super_admin (access controled at beginning of function) can delete any user excepting himself from DB.
+It works like feed with a map iterating cards, but this time all users and posts are bringed from DB and only super_admin (access controled at beginning of function) can access.
 
 ![alt text](img/SuperAdminLogic.png)
 
@@ -324,6 +324,9 @@ It works like feed with a map iterating cards, but this time all users and posts
 
 ### ACKNOWLEDGEMENTS :raised_hands:
 Big shout out like always to the GeeksHubs team for giving me the change of learning in this wonderful world of developping! 
+
+Leaving here thanks and link to the owner of the "edit" icon in profile view:
+<a href="https://www.freepik.es/icono/herramienta-lapiz_7310483#fromView=search&page=1&position=1&uuid=68f7fdd7-d363-4410-a8c8-88ecb178cc83">Icono de Hasymi</a>
 
 [def]: #Acknowledgements-
 
