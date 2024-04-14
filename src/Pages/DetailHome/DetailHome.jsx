@@ -19,9 +19,11 @@ export const PostDetailHome = () => {
   const dispatch = useDispatch()
 
   const reduxUser = useSelector(userData)
+
   const navigate = useNavigate();
 
-  // eslint-disable-next-line no-unused-vars
+  const [isLikedBefore, setIsLikedBefore] = useState(detailRdx.detail?.likes.includes(reduxUser.tokenData.userID))
+
   const [post, setPost] = useState({
     postId: detailRdx.detail?._id,
     title: detailRdx.detail?.title,
@@ -48,7 +50,11 @@ export const PostDetailHome = () => {
       const fetched = await likeCall(reduxUser.tokenData.token, postId)
       console.log(fetched)
 
-      dispatch(updateDetail({ detail: fetched.data }))
+     dispatch(updateDetail({ detail: fetched.data }))
+
+     if(isLikedBefore===false){
+      setIsLikedBefore(true)
+      }else setIsLikedBefore(false)
 
       if (fetched.message === "Like") {
         toast.success(fetched.message)
@@ -84,7 +90,8 @@ export const PostDetailHome = () => {
     <div className="likeContainer" key={detailRdx.detail?._id}>
       <CButton
         className={"likeButton"}
-        title={<Heart fill="red" />}
+        title={<Heart fill={isLikedBefore===true ? "red"
+        : "white"} />}
         emitFunction={() => likePost(detailRdx.detail?._id)}
       />
       <div className="likesNum">{detailRdx.detail?.likes.length}</div>

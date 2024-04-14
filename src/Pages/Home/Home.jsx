@@ -27,9 +27,6 @@ export const Home = () => {
 
     const [posts, setPosts] = useState([])
 
-
-
-
     const inputHandler = (e) => {
         setStory((prevState) => ({
             ...prevState,
@@ -199,7 +196,8 @@ export const Home = () => {
                                             <div className="likeContainer" key={post._id} >
                                                 <CButton
                                                 className={"likeButton"}
-                                                title={<Heart fill="white" />}
+                                                title={<Heart fill={post.likes.includes(reduxUser.tokenData.user.userId) ? "red"
+                                                : "white"} />}
                                                 emitFunction={() => likePost(post._id)}
                                                 />
                                                 <div className="likesNum">{post.likes.length}</div>
