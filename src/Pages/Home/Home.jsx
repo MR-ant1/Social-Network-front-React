@@ -13,6 +13,7 @@ import { updateDetail } from "../../app/slices/postDetailSlice"
 import { useDispatch } from 'react-redux'
 import { ToastContainer, toast } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
+import { Heart } from "lucide-react"
 
 
 
@@ -114,7 +115,7 @@ export const Home = () => {
         try {
             const fetched = await likeCall(reduxUser.tokenData.token, postId)
 
-            if (fetched.message === "Liked!") {
+            if (fetched.message === "Like") {
                 toast.success(fetched.message)
             } else toast.info(fetched.message)
 
@@ -195,13 +196,15 @@ export const Home = () => {
                                                 description={post.description.length > 40 ? post.description.substring(0, 40) + "..." : post.description}
                                                 clickFunction={() => manageDetail(post)}
                                             />
-                                            <div className="likeContainer" key={post._id}>
+                                            <div className="likeContainer" key={post._id} >
                                                 <CButton
-                                                    className={"likeButton"}
-                                                    title={post.likes.length}
-                                                    emitFunction={() => likePost(post._id)}
+                                                className={"likeButton"}
+                                                title={<Heart fill="red" />}
+                                                emitFunction={() => likePost(post._id)}
                                                 />
+                                                <div className="likesNum">{post.likes.length}</div>
                                             </div>
+                                            
                                         </div>
                                     )
                                 }).reverse()}

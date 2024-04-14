@@ -72,7 +72,7 @@ export const Login = () => {
             const fetched = await loginCall(user);
             
             
-            if (fetched.message === "User logged succesfully") {
+            if (fetched.message === "Usuario logueado correctamente") {
                 toast.success(fetched.message)
             } else (toast.error(fetched.message))
 

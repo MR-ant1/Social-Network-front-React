@@ -212,12 +212,23 @@
     justify-content: center;
     align-items: center;
 
-    background-color: rgb(183, 185, 255); 
+    background-color:  rgb(106, 168, 255);
 }
 
 .likeButton:hover {
     cursor: pointer;
-    background-color: rgb(151, 154, 255); 
+}
+
+.likesNum{
+    height: 4em;
+
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    font-size: 1em;
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
 }
 
 .cardsDesign:hover {
