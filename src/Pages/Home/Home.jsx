@@ -132,7 +132,8 @@ export const Home = () => {
 
             {reduxUser.tokenData.token === undefined ? (
                 <>
-                    <div className="welcomeMsg">Bienvenido a Posstinger.</div>
+                <div className="welcomeView">
+                    <div className="welcomeMsg">Bienvenido a Post It!</div>
                     <RedirectButton
                         className={"loginButtonDesign"}
                         title={"Login"}
@@ -143,11 +144,15 @@ export const Home = () => {
                         title={"Register"}
                         emitFunction={() => navigate("/register")}
                     />
+                    </div>
                 </>
             ) : (
 
                 posts.length > 0 ? (
                     <>
+                    <div className="homeHeader">
+                    FEED
+                    </div>
                         <div className="postPanel">
                             <div className="writeBox">
                                 <PostInput
@@ -155,7 +160,7 @@ export const Home = () => {
                                     type={"text"}
                                     name={"title"}
                                     value={story.title}
-                                    placeholder={"Titulo de tu historia"}
+                                    placeholder={"¿Qué hay de nuevo?"}
                                     changeFunction={inputHandler}
 
                                 />
@@ -164,7 +169,7 @@ export const Home = () => {
                                     type={"text"}
                                     name={"description"}
                                     value={story.description}
-                                    placeholder={"Sorprende al mundo con su trama"}
+                                    placeholder={"Desarrolla tu historia"}
                                     changeFunction={inputHandler}
                                 />
                             </div>
@@ -183,14 +188,14 @@ export const Home = () => {
                             {posts.slice(0, posts.length).map(      //Giving a limit to ensure that only brings one time each existing post
                                 post => {
                                     return (
-                                        <div className="postContainer" key={post._id}>
+                                        <div className="cardDiv" key={post._id}>
                                             <PostCard
                                                 authorFirstName={post.authorFirstName}
                                                 title={post.title.length > 20 ? post.title.substring(0, 20) : post.title}
                                                 description={post.description.length > 40 ? post.description.substring(0, 40) + "..." : post.description}
                                                 clickFunction={() => manageDetail(post)}
                                             />
-                                            <div className="likeButton" key={post._id}>
+                                            <div className="likeContainer" key={post._id}>
                                                 <CButton
                                                     className={"likeButton"}
                                                     title={post.likes.length}

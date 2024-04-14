@@ -4,7 +4,7 @@
     height: 88vh;
     width: 100vw;
 
-    background-color:  rgb(255, 255, 255);
+    background-color:  rgb(106, 168, 255);
 
     display: flex;
     flex-direction: column;
@@ -15,51 +15,105 @@
 
 }
 
+.welcomeView{
+    width: 50em;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .welcomeMsg {
     height: 2em;
     width: 20em;
+    
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+
+    margin: 1em;
+
     display:flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: flex-start;
+
     font-size: 3em;
 
-    background-color: rgb(138, 138, 138);
+    background-color: rgb(106, 168, 255);
 }
 
 .cardsDesign {
 
-    width: 50vw;
-    height: 60vh;
+    height: 10vh;
+
+    background-color: rgb(106, 168, 255);
+    margin: 1em;
+    border-radius: 1em;
 
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    /* overflow-y: scroll;
-    overflow-x: hidden; */
+    transition: 0.2s;
 }
 
+
 .registerButtonDesign {
-    height: 2em;
+    height: 2.2em;
     width: 10em;
 
     border: solid black 0.1em;
-    border-radius: 1em ;
+    border-radius: 1em;
 
-    background-color: rgb(203, 203, 255);
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgb(183, 185, 255);
+
+    transition: 0.3s;
+}
+
+.registerButtonDesign:hover{
+    background-color:rgb(151, 154, 255); 
+    cursor: pointer;
+    transition: 0.3s;
+    height: 2.5em;
+    width: 10.5em;
 }
 
 .loginButtonDesign {
-    height: 2em;
+    height: 2.2em;
     width: 10em;
 
+    margin-bottom: 2em;
     border: solid black 0.1em;
     border-radius: 1em ;
 
-    background-color: rgb(158, 158, 255);
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgb(255, 255, 255);
+
+    transition: 0.3s;
 }
 
+.loginButtonDesign:hover{
+    background-color:rgb(232, 233, 255); 
+    cursor: pointer;
+    transition: 0.3s;
+    height: 2.5em;
+    width: 10.5em;
+}
 .postPanel {
     height: 20m;
     width: auto;
@@ -69,8 +123,6 @@
     border: solid rgb(255, 255, 255) 0.1em;
     border-radius: 0.6em;
     margin-bottom: 1em;
-    margin-top: 3em;
-    /* margin-right: 10em; */
 
     display: flex;
     flex-direction: row;
@@ -101,7 +153,7 @@
 .createPostButton {
     height: 2em;
     width: 10em;
-    background-color: rgb(110, 110, 255);
+    background-color: rgb(183, 185, 255);
 
     display: flex;
     flex-direction: column;
@@ -119,7 +171,7 @@
 .postTitleInput {
     height: 2em;
     width: 25em;
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
 
     border-radius: 0.3em;
     border: white;
@@ -136,42 +188,59 @@
 
 .createPostButton:hover {
     cursor: pointer;
-    background-color: rgb(78, 78, 193);;
+    background-color: rgb(151, 154, 255);
+}
+
+.likeContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .likeButton {
     height: 2.5em;
     width: 2.5em;
 
-    border-radius: 1em;
+    border-radius: 2em;
+
+    margin-left: 1em;
+    margin-bottom: 3em;
 
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 
-    background-color: rgb(89, 0, 255);
+    background-color: rgb(183, 185, 255); 
 }
 
 .likeButton:hover {
     cursor: pointer;
-    background-color: rgb(63, 0, 181);
+    background-color: rgb(151, 154, 255); 
 }
 
-.postContainer {
-    background-color: rgb(220, 220, 220);
-    margin: 1em;
-    border-radius: 1em;
-
-    display: wrap;
-    flex-direction: column;
-    align-items: center;
-
-    transition: 0.2s;
-}
-
-/* .postContainer:hover {
+.cardsDesign:hover {
     cursor: pointer;
-    background-color: rgb(173, 173, 173);
-    transition: 0.2s;
-} */
+    background-color: rgb(106, 168, 255); 
+    transition: 0.3s;
+}
+
+.cardDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 1em;
+
+
+    border-bottom: solid black 0.1em;
+}
+
+.homeHeader{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    font-size: 2em;
+
+    margin-bottom: 3em;
+}

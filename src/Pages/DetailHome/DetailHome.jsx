@@ -79,7 +79,7 @@ export const PostDetailHome = () => {
       description={detailRdx.detail?.description}
     />
     }
-    <div className="likeButton" key={detailRdx.detail?._id}>
+    <div className="likeContainer" key={detailRdx.detail?._id}>
     <CButton
         className={"likeButton"}
         title={detailRdx.detail?.likes.length}

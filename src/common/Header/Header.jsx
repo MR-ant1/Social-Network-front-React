@@ -13,6 +13,11 @@ export const Header = () => {
 
     return (
         <div className="headerDesign">
+            <div className='titleRow'>
+            <div className='webTitle'>
+                POST IT!
+            </div>
+            </div>
             <Navigator
                 path="/"
                 title="Home"

@@ -3,7 +3,7 @@
   height: 12vh;
   width: 100%;
 
-  background-color: rgb(33, 33, 33);
+  background-color: rgb(46, 46, 46);
   
   display: flex;
   flex-direction: row;
@@ -22,4 +22,17 @@
   transition: 0.3s;
   color: rgb(160, 160, 160);
   cursor: pointer;
+}
+
+.titleRow{
+  width: 65%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    font-size: 2.5em;
+    color: white
 }
