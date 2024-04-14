@@ -1,0 +1,17 @@
+
+.iconNavigatorDesign{
+    height: 0.5em;
+    width: 0.5em;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+
+    transition: 0.3s;
+}
+
+.iconNavigatorDesign:hover{
+    cursor: pointer;
+}
