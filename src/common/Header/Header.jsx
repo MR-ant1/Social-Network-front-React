@@ -3,6 +3,7 @@ import './Header.css'
 import { Navigator } from '../Navigator/Navigator'
 import { useSelector, useDispatch } from "react-redux";
 import { userData, logout } from "../../app/slices/userSlice";
+import { IconNavigator } from '../IconNavigator/IconNavigator';
 
 
 export const Header = () => {
@@ -13,15 +14,20 @@ export const Header = () => {
 
     return (
         <div className="headerDesign">
-            <Navigator
+            <div className='titleRow'>
+            <div className='webTitle'>
+                <IconNavigator
                 path="/"
-                title="Home"
-            />
+                title={<img src='img/iconPNG.png' alt="Logo" />}
+                />
+            </div>
+            </div>
+            
             {reduxUser.tokenData.token ? (
                 reduxUser.tokenData.user.role === 'super_admin' ? (
                     <div className='navigatorDesign'>
                         <Navigator
-                            path='/superAdmin' title='ADMIN' />
+                            path='/superAdmin' title='admin area' />
                         <Navigator
                             path='/profile' title={reduxUser.tokenData.user.authorFirstName} />
                         <div

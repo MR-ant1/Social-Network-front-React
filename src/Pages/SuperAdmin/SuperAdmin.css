@@ -3,8 +3,7 @@
     height: 88vh;
     width: 100vw;
 
-    background-color:  rgb(255, 255, 255);
-
+    background-color: rgb(106, 168, 255);
     display: wrap;
     flex-wrap: wrap;
     justify-content: center;
@@ -15,17 +14,25 @@
 
 .postNUserCards {
     min-height: 100em;
-    width: 100em;
+    width: 100%;
     display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
 }
 
 .cardsDesign {
-    width: 49%
+    width: 48%;
+    background-color: rgb(106, 168, 255);
+    padding: 0;
+}
+
+.cardsDesign:hover{
+    background-color: rgb(106, 168, 255);
 }
 
 .userCards {
     height: 100%;
-    width: 49%;
+    width: 48%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -44,4 +51,20 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.usersColumnTitle{
+    background-color: rgb(106, 168, 255);
+    margin:0.5em;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.postColumnTitle{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    font-size: 2em;
+    margin-bottom: 0.6em;
+
 }

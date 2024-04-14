@@ -8,7 +8,7 @@
     align-items: center;
     justify-content: space-evenly;
 
-    background-color:  rgb(255, 255, 255);
+    background-color:  rgb(106, 168, 255); 
 
     overflow-x: hidden;
 }
@@ -39,7 +39,7 @@
 }
 
 .myPostCard {
-    width: 90%;
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -50,7 +50,7 @@
 .updateButton {
     height: 2em;
     width: 10em;
-    background-color: rgb(110, 110, 255);
+    background-color: rgb(183, 185, 255); 
 
     display: flex;
     flex-direction: column;
@@ -68,7 +68,7 @@
 .updateButton:hover {
     cursor: pointer;
     transition: 0.3s;
-    background-color: rgb(85, 85, 255)
+    background-color: rgb(151, 154, 255);
 }
 
 .allowButton{
@@ -98,7 +98,7 @@
 .deleteButton {
     height: 2em;
     width: 6em;
-    background-color: rgb(110, 110, 255);
+    background-color: rgb(183, 185, 255); 
 
     display: flex;
     flex-direction: row;
@@ -116,13 +116,12 @@
 .deletePostButton{
     width: 8em;
     display: flex;
-
     justify-content: center;
 }
 
 .deleteButton:hover {
     cursor: pointer;
-    background-color: rgb(58, 58, 152);
+    background-color: rgb(151, 154, 255); 
     transition: 0.3s;
 }
 
@@ -133,7 +132,7 @@
 
 .postCardDesign:hover {
     cursor: pointer;
-    background-color: rgb(173, 173, 173);
+    background-color: rgb(203, 203, 203);
     transition: 0.2s;
 }
 

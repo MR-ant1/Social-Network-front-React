@@ -73,8 +73,8 @@ export const Register = () => {
         try {
             for (let elemento in user) {
                 if (user[elemento] === "") {
-                    throw new Error("All fields are required"),
-                    toast.error("All fields are required")
+                    throw new Error("Todos los campos son obligatorios"),
+                    toast.error("Todos los campos son obligatorios")
                 }
             }
             
@@ -82,11 +82,11 @@ export const Register = () => {
 
             if (fetched.success === true) {
                 toast.success(fetched.message)
-            }
+            }else toast.error(fetched.message)
             
             if (fetched.success === true){
-            setTimeout(() => {    //After ending registration, page redirects to home.
-                navigate("/")
+            setTimeout(() => {    
+                navigate("/login")
             }, 2000)}else navigate("/register")
 
         } catch (error) {
