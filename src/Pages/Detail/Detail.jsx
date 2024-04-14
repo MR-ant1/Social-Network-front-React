@@ -163,7 +163,7 @@ const likePost = async (postId) => {
 
         <CButton
           className={write === "" ? " updateButton" : "allowButton"}
-          title={write === "" ? "Actualizar" : "Habilitar"}
+          title={write === "" ? "Actualizar" : <img src="img/EditIcon.png" alt="editIcon"></img>}
           emitFunction={write === "" ? () => UpdatePost(post._id) : () => setWrite("")}
         />
         <div className="likeRow">
