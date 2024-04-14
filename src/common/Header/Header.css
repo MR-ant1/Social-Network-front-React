@@ -1,7 +1,7 @@
 .headerDesign {
 
   height: 12vh;
-  width: 100%;
+  width: 100vw;
 
   background-color: rgb(46, 46, 46);
   
@@ -25,7 +25,8 @@
 }
 
 .titleRow{
-  width: 65%;
+  width: 64%;
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;

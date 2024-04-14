@@ -65,21 +65,6 @@ export const SuperAdmin = () => {
         }
     }, [users])
 
-
-    // const deletePost = async (id) => {
-    //     try {
-    //         const fetched = await deletePostCall(id, reduxUser.tokenData.token)
-    //         setDeleteMsgError(fetched.message)
-
-    //         setTimeout(() => {
-    //             setDeleteMsgError("")
-    //         }, 3000)
-
-    //     } catch (error) {
-    //         setDeleteMsgError(error.message)
-    //     }
-    // }
-
     return (
         <div className="adminDesign">
 
@@ -88,7 +73,7 @@ export const SuperAdmin = () => {
             ) : (
                 <div className="postNUserCards">
                     <div className="cardsDesign">
-                        <div>POSTS</div>
+                        <div className="postColumnTitle">POSTS</div>
                         {posts.slice(0, posts.length).map(
                             post => {
                                 return (
@@ -104,7 +89,7 @@ export const SuperAdmin = () => {
                     </div>
                     {loadedData === true ? (
                         <div className="userCards">
-                            <div>USERS</div>
+                            <div className="usersColumnTitle">USERS</div>
                             {users.slice(0, users.length).map(
                                 user => {
                                     return (
@@ -114,7 +99,6 @@ export const SuperAdmin = () => {
                                                 lastName={user.lastName}
                                                 email={user.email}
                                                 role={user.role}
-                                                likedPosts={user.likedPosts}
                                             />
                                         </div>
                                     )

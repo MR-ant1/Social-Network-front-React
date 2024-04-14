@@ -71,12 +71,14 @@ export const Login = () => {
         try {
             const fetched = await loginCall(user);
             
+            
+            if (fetched.message === "User logged succesfully") {
+                toast.success(fetched.message)
+            } else (toast.error(fetched.message))
+
+
             if (fetched.token) {
                 const decoded = decodeToken(fetched.token)
-
-                if (fetched.success === true) {
-                    toast.success(fetched.message)
-                }
 
                 const passInfo = {
                     token: fetched.token,
