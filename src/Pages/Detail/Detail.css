@@ -33,6 +33,7 @@
 
 .undoButton {
     width: 40em;
+    margin-top: 4em;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -104,4 +105,10 @@
     cursor: pointer;
     transition: 0.3s;
     background-color: rgb(10, 94, 189);
+}
+
+.likeRow{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
