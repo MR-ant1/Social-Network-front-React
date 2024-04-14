@@ -1,6 +1,5 @@
 
 import "./DetailHome.css";
-
 import { useSelector } from "react-redux";
 import { detailData, updateDetail } from "../../app/slices/postDetailSlice";
 import { useEffect, useState } from "react";
@@ -28,15 +27,16 @@ export const PostDetailHome = () => {
     title: detailRdx.detail?.title,
     description: detailRdx.detail?.description
   })
+
   useEffect(() => {
-  
+
     if (!detailRdx?.detail?._id) {
       navigate("/");
     }
   }, [detailRdx]);
 
   useEffect(() => {
-  
+
     if (!reduxUser.tokenData?.token) {
       navigate("/");
     }
@@ -45,60 +45,61 @@ export const PostDetailHome = () => {
   const likePost = async (postId) => {
 
     try {
-        const fetched = await likeCall(reduxUser.tokenData.token, postId)
-        console.log(fetched)
+      const fetched = await likeCall(reduxUser.tokenData.token, postId)
+      console.log(fetched)
 
-        dispatch(updateDetail({detail: fetched.data}))
+      dispatch(updateDetail({ detail: fetched.data }))
 
-        if (fetched.message === "Like") {
-            toast.success(fetched.message)
-        } else toast.info(fetched.message)
+      if (fetched.message === "Like") {
+        toast.success(fetched.message)
+      } else toast.info(fetched.message)
 
-        if (fetched.data && fetched.data._id) {
-            setPost(post?.map(post => post._id === postId ? fetched.data
-             : detailRdx.detail))}
+      if (fetched.data && fetched.data._id) {
+        setPost(post?.map(post => post._id === postId ? fetched.data
+          : detailRdx.detail))
+      }
 
     } catch (error) {
-        console.log(error)
+      console.log(error)
     }
-}
+  }
 
 
   return (<div className="detailDesign">
     <div className="undoButton">
-    <CButton
-    className={"backButton"}
-    title={"X"}
-    emitFunction={(() => navigate('/'))}
-    />
-  </div>
+      <CButton
+        className={"backButton"}
+        title={"X"}
+        emitFunction={(() => navigate('/'))}
+      />
+    </div>
     {detailRdx.detail?._id &&
-    <PostCard
-      authorFirstName={detailRdx.detail?.authorFirstName}
-      authorLastName={detailRdx.detail?.authorLastName}
-      title={detailRdx.detail?.title}
-      description={detailRdx.detail?.description}
-    />
+      <PostCard
+        authorFirstName={detailRdx.detail?.authorFirstName}
+        authorLastName={detailRdx.detail?.authorLastName}
+        title={detailRdx.detail?.title}
+        description={detailRdx.detail?.description}
+      />
     }
     <div className="likeContainer" key={detailRdx.detail?._id}>
-    <CButton
-      className={"likeButton"}
-      title={<Heart fill="red" />}
-      emitFunction={() => likePost(detailRdx.detail?._id)}
+      <CButton
+        className={"likeButton"}
+        title={<Heart fill="red" />}
+        emitFunction={() => likePost(detailRdx.detail?._id)}
       />
       <div className="likesNum">{detailRdx.detail?.likes.length}</div>
     </div>
     <ToastContainer
-                position="top-center"
-                autoClose={300}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-            />
+      position="top-center"
+      autoClose={300}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="dark"
+    />
   </div>)
 }

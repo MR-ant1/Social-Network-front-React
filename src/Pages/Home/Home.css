@@ -17,9 +17,12 @@
 
 .welcomeView{
     width: 50em;
+
+    margin:1em;
+
     display:flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -30,7 +33,7 @@
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     font-weight: bold;
 
-    margin: 1em;
+    margin-bottom: 2em;
 
     display:flex;
     flex-direction: row;
