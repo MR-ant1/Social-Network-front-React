@@ -24,7 +24,7 @@ export const PostDetail = () => {
 
   const dispatch = useDispatch();
 
-  const [isLikedBefore, setIsLikedBefore] = useState(detailRdx.detail?.likes.includes(reduxUser.tokenData.userID))
+  const [isLikedBefore, setIsLikedBefore] = useState(detailRdx.detail?.likes.includes(reduxUser.tokenData.userId))
 
   const [post, setPost] = useState({
     postId: detailRdx.detail?._id,

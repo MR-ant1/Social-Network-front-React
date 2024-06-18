@@ -124,15 +124,12 @@ export const Profile = () => {
                 }
             }
 
-            const fetched = await UpdateCall(reduxUser?.tokenData?.token, user)
+            const fetched = await UpdateCall(reduxUser.tokenData.token, user)
             if (fetched.success === true) {
                 toast.success(fetched.message)
             } else toast.error(fetched.message)
 
-            setWrite("disabled")
-
-
-
+            setWrite("disabled")  
         } catch (error) {
             console.log(error.message)
         }
@@ -200,7 +197,7 @@ export const Profile = () => {
                     <CButton
                         className={write === "" ? " updateButton" : "allowButton"}
                         title={write === "" ? "Actualizar" : <img src="img/EditIcon.png" alt="editIcon"></img>}
-                        emitFunction={write === "" ? UpdateProfile : () => setWrite("")}
+                        emitFunction={write === "" ? UpdateProfile(user) : () => setWrite("")}
                     />
 
                 </div>

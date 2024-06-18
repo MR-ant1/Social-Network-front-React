@@ -48,7 +48,6 @@ export const PostDetailHome = () => {
 
     try {
       const fetched = await likeCall(reduxUser.tokenData.token, postId)
-      console.log(fetched)
 
      dispatch(updateDetail({ detail: fetched.data }))
 
