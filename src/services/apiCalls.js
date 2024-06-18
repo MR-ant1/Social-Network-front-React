@@ -1,5 +1,5 @@
 
-const root = "http://localhost:4001/api/"
+const root = "http://fabulous-kindness-production.up.railway.app/api/"
 import { logout } from "../app/slices/userSlice";
 
 export const loginCall = async (user) => {
