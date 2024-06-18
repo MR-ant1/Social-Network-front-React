@@ -1,5 +1,5 @@
 
-const root = "https://fabulous-kindness-production.up.railway.app/api/"
+const root = "https://api-postit.up.railway.app/api/"
 import { logout } from "../app/slices/userSlice";
 
 export const loginCall = async (user) => {
